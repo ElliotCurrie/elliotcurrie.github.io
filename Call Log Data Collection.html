@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Elliot Currie - Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-white text-gray-900">
+
+    <!-- Header Section -->
+    <header class="bg-blue-600 text-white py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <h1 class="text-3xl font-semibold">Elliot Currie</h1>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="index.html" class="hover:text-gray-300">Home</a></li>
+                    <li><a href="projects.html" class="hover:text-gray-300">Projects</a></li>
+                    <li><a href="#contact" class="hover:text-gray-300">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
+
+        <section>
+            <h2 class="text-2xl font-bold mb-4">📞 Call Log Data Collection</h2>
+
+            <div class="prose max-w-none">
+                <h3>🛠️ Disclaimer</h3>
+                <p>This project was developed for the contact centre I work at, in my role as a ‘data engineer’, within a <strong>constrained corporate IT environment</strong>, where access to sources of truth and tooling is heavily restricted. Every effort has been made to gain access to the database that stores this data — and at the time of writing, I’m just over <strong>five months into that process</strong>.</p>
+
+                <h3>📊 Overview</h3>
+                <p>The purpose of this project is to <strong>automate the collection of call logs</strong> made by agents at the contact centre, enabling downstream <strong>analytics and gamification</strong>.</p>
+
+                <p>Previously, the only way to access call data was through a <strong>legacy browser-based portal</strong> used for training and quality control. This portal allowed users to export a maximum of <strong>1,000 call records</strong> at a time — and only for calls made <strong>within the past two months</strong>, due to a strict data retention policy.</p>
+
+                <p>Given that <strong>over 1,000 calls are made every day</strong>, this limitation made granular analysis virtually impossible. While other portals exist for exporting aggregated reports, they offer <strong>little to no control over groupings or filters</strong>, leaving users stuck with the same rigid perspectives.</p>
+
+                <h3>🧰 Tools & Workarounds</h3>
+                <p>Due to the limitations of the corporate environment, I had to employ some unconventional but effective solutions to get this project operational:</p>
+
+                <ul>
+                    <li><strong>Playwright (Python)</strong> – Used to automate interaction with the call recording portal’s browser-based UI. This handles <em>authentication, navigation, and data extraction</em>, bypassing the need for official APIs or backend access.</li>
+                    <li><strong>PostgreSQL (Portable)</strong> – Because installing software or provisioning cloud infrastructure isn't permitted, I'm running a <em>portable version of PostgreSQL locally</em>. This gives me a full-featured relational database without relying on IT support or infrastructure.</li>
+                    <li><strong>Local Automation</strong> – The Playwright script runs in an <em>infinite loop</em> on an <strong>always-on local machine</strong>, fetching new logs automatically whenever they become available.</li>
+                </ul>
+
+                <h3>🔄 Workflow (Simple)</h3>
+                <p>At a high level, here’s how the Python script operates:</p>
+
+                <h4 class="font-semibold mt-4">Startup</h4>
+                <ul>
+                    <li>Open the call recording portal in a <em>headless (invisible) browser</em> and log in</li>
+                    <li>Reset all filters to ensure the full call log is visible</li>
+                    <li>Sort the table by the <strong>'Created at'</strong> datetime column in <em>descending order</em></li>
+                    <li>Click the <strong>'Start Search'</strong> button to apply/reset filters</li>
+                </ul>
+
+                <h4 class="font-semibold mt-4">Loop</h4>
+                <ul>
+                    <li>Extract all call logs from the current page into a table</li>
+                    <li>Insert all rows into the PostgreSQL database — <em>only rows that don’t already exist</em></li>
+                    <li>Return the number of rows inserted</li>
+                    <li>If <strong>all rows were inserted</strong>, go to the <strong>next page</strong> and repeat</li>
+                    <li>If <strong>only some rows were inserted</strong>, click <strong>'Start Search'</strong> again to refresh the data</li>
+                    <li>Repeat until new data stops appearing</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
