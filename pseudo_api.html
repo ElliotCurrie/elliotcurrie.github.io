@@ -44,39 +44,32 @@
             <p>This project was developed for the contact centre I work at, in my role as a data engineer, within a <strong>constrained corporate IT environment</strong>, where access to Microsoft APIs is heavily restricted and Power Platform licensing is basic. After some tinkering, this seems to be the most cost-effective and secure method i've found.</p>
                             
             <h2 id="overview" class="text-2xl font-semibold mt-16 mb-4">Overview</h2>
-            <p>The initial purpose of this project was to allow the transfer of data from the Microsoft ecosystem to my local DB, so it could be merged with another dataset (call logs) before sending data back to the Microsoft ecosystem. However, since then i've realised that this idea has scope to scale.</p>
+            <p>The initial purpose of this project was to allow the transfer of data from the Microsoft ecosystem to my local DB, so it could be merged with another dataset (call logs) before being sent back to the Microsoft ecosystem. However, since then i've realised that this idea has scope to scale.</p>
             <br>
-            <p>Previously, the only way to access call data was through a <strong>legacy browser-based portal</strong> used for training and quality control. This portal allowed users to export a maximum of <strong>1,000 call records</strong> at a time — and only for calls made <strong>within the past two months</strong>, due to a strict data retention policy.</p>
-            <br>
-            <p>Given that <strong>over 1,000 calls are made every day</strong>, this limitation made granular analysis virtually impossible. While other portals exist for exporting aggregated reports, they offer <strong>little to no control over groupings or filters</strong>, leaving users stuck with the same rigid perspectives.</p>
+            <p>The problem this solves could essentially be what you want it to be. It's the reason I haven't scaled this idea yet, i'm waiting for a concrete use case, beyond what i'm already using it for.</p>
     
             <h2 id="tools" class="text-2xl font-semibold mt-16 mb-4">Tools & Workarounds</h2>
-            <p>Due to the limitations of the corporate environment, I had to employ some unconventional but effective solutions to get this project operational:</p>
+            <p>Due to the limitations of the environment, I had to employ some unconventional but effective solutions to get this project operational:</p>
             <br>
             <ul class="list-disc list-inside space-y-2">
-                <li><strong>Playwright (Python)</strong> – Used to automate interaction with the call recording portal’s browser-based UI. This handles <em>authentication, navigation, and data extraction</em>, bypassing the need for official APIs or backend access.</li>
-                <li><strong>PostgreSQL (Portable)</strong> – Because installing software or provisioning cloud infrastructure isn't permitted, I'm running a <em>portable version of PostgreSQL locally</em>. This gives me a full-featured relational database without relying on IT support or infrastructure.</li>
-                <li><strong>Local Automation</strong> – The Playwright script runs in an <em>infinite loop</em> on an <strong>always-on local machine</strong>, fetching new logs automatically whenever they become available.</li>
+                <li><strong>SharePoint</strong> - Stores function names and corresponding parameters in a list.</li>
+                <li><strong>Power Apps (Free License)</strong> – Uses the function SharePoint list as a source </li>
+                <li><strong>Excel</strong> – XLSX stored locally, but in a folder that syncs with OneDrive. Used as the bridge for cloud to local data transmission.</li>
+                <li><strong>OneDrive</strong> - Hosts the Excel workbook (above).
+                <li><strong>Python</strong> –  Monitors the spreadsheet locally for changes. Executes functions based on new data.</li>
+                <li><strong>Power Automate (Free License)</strong> - Used for recieving outputs from Python and passing data to it's final destination within the Microsoft ecosytem.</li>
+                <li><strong>Always-on PC</strong> - Python script needs to be running to receive and action user requests.</li>
             </ul>
     
             <h2 id="workflow" class="text-2xl font-semibold mt-16 mb-4">Workflow (Simple)</h2>
-            <p>At a high level, here’s how the Python script operates:</p>
+            <p>At a high level, this is how the system would operate:</p>
     
             <h3 class="font-semibold mt-4 mb-2">Startup</h3>
             <ol class="list-decimal list-inside space-y-2">
-                <li>Open the call recording portal in a <em>headless (invisible) browser</em> and log in</li>
-                <li>Reset all filters to ensure all call logs are visible</li>
+                <li>User fills a form on Power Apps with the function requested, and it's corresponding parameters.</li>
+                <li>On submit, the form response is written to the OneDrive Excel spreadsheet</li>
                 <li>Sort the table by the <strong>'Created at'</strong> datetime column in <em>descending order</em></li>
                 <li>Click the <strong>'Start Search'</strong> button to apply/reset filters</li>
-            </ol>
-            <h3 class="font-semibold mt-4 mb-2">Loop</h3>
-            <ol class="list-decimal list-inside space-y-2">
-                <li>Extract all call logs from the current page into a table</li>
-                <li>Insert all rows into the PostgreSQL database — <em>only rows that don’t already exist</em></li>
-                <li>Return the number of rows inserted</li>
-                <li>If <strong>all rows were inserted</strong>, go to the <strong>next page</strong> and repeat</li>
-                <li>If <strong>only some rows were inserted</strong>, click <strong>'Start Search'</strong> again to refresh the data</li>
-                <li>Repeat until new data stops appearing</li>
             </ol>
         </div>
     </main>
