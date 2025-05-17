@@ -56,7 +56,7 @@
                 <li><strong>Power Apps (Free License)</strong> – Uses the request SharePoint list as the source for a form control. Has the spreadsheet (below) as a data source.</li>
                 <li><strong>Excel</strong> – XLSX stored locally, but in a folder that syncs with OneDrive.</li>
                 <li><strong>OneDrive</strong> - Hosts the Excel workbook (above).
-                <li><strong>Python</strong> –  Monitors the spreadsheet locally for changes (kept open, in an invisible instance). Executes functions based on new data.</li>
+                <li><strong>Python</strong> –  Monitors the spreadsheet locally for changes (kept open, in an invisible instance). Executes functions based on new data. All functions are aynchronous so they don't block each other.</li>
                 <li><strong>Power Automate (Free License)</strong> - Used as the bridge from the local environment to the Microsoft ecosystem via HTTP.</li>
                 <li><strong>Always-on PC</strong> - Python script needs to be running to receive and action user requests.</li>
             </ul>
