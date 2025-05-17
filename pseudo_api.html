@@ -59,7 +59,7 @@
             <ol class="list-decimal list-inside space-y-5 mt-4">
                 <li>User fills a form on Power Apps with the function requested, and it's corresponding parameters.</li>
                 <li>For the 'on click' property of the submit button: the form is submitted which writes the response to the request SharePoint list, we then retrieve the form's last submit ID and patch that along with the function name and params to the spreadsheet.</li>
-                <li>The Python script sees the new data in the spreadsheet, and runs the requested function.</li>
+                <li>The Python script sees the new data in the spreadsheet, and runs the requested function. The new data is written to another local file or a database as a local request log and as a method of de-duplicating the spreadsheet data to identify new requests.</li>
                 <li>A response is sent to Power Automate via the 'When a HTTP request is received' trigger with: the SharePoint item ID of the request, the request's status code, and maybe some output data if you want, as the payload.</li>
                 <li>The Power Automate flow updates the SharePoint item with the status code, using the SharePoint item ID. And then you can put any other data you have in it's chosen destination, or not, up to you. Perhaps the requested action takes place locally.</li>
             </ol>
