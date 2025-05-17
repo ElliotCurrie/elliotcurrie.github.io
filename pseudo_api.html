@@ -53,11 +53,10 @@
                 <li><strong>Always-on PC</strong> - Python script needs to be running to receive and action user requests.</li>
             </ul>
     
-            <h2 id="workflow" class="text-2xl font-semibold mt-16 mb-4">Workflow (Simple)</h2>
+            <h2 id="workflow" class="text-2xl font-semibold mt-16 mb-4">Workflow</h2>
             <p>At a high level, this is an example for how the system could operate:</p>
     
-            <h3 class="font-semibold mt-4 mb-2">Startup</h3>
-            <ol class="list-decimal list-inside space-y-2">
+            <ol class="list-decimal list-inside space-y-5">
                 <li>User fills a form on Power Apps with the function requested, and it's corresponding parameters.</li>
                 <li>For the 'on click' property of the submit button: the form is submitted which writes the response to the request SharePoint list, we then retrieve the form's last submit ID and patch that along with the function name and params to the spreadsheet.</li>
                 <li>The Python script sees the new data in the spreadsheet, and runs the requested function.</li>
