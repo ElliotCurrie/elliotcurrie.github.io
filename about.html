@@ -15,7 +15,9 @@
     <header class="bg-blue-600 text-white py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
             <h1 class="text-3xl font-semibold">Elliot Currie</h1>
-            <nav>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden sm:block">
                 <ul class="flex space-x-6">
                     <li><a href="index.html" class="hover:text-gray-300">Home</a></li>
                     <li><a href="about.html" class="hover:text-gray-300">About Me</a></li>
@@ -23,38 +25,42 @@
                     <li><a href="contact.html" class="hover:text-gray-300">Contact</a></li>
                 </ul>
             </nav>
+
+            <!-- Hamburger Menu Button (Mobile Only) -->
+            <button
+                id="menu-button"
+                type="button"
+                aria-label="Toggle navigation"
+                aria-expanded="false"
+                class="sm:hidden p-2 -m-2 rounded-md focus:outline-none focus-visible:outline-none"
+                style="outline: none; box-shadow: none; -webkit-tap-highlight-color: transparent;"
+            >
+                <svg
+                    class="w-8 h-8 text-white"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    style="outline: none; box-shadow: none;"
+                >
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+            </button>
         </div>
-<button
-    id="menu-button"
-    type="button"
-    aria-label="Toggle navigation"
-    aria-expanded="false"
-    class="sm:hidden p-2 -m-2 rounded-md focus:outline-none focus-visible:outline-none"
-    style="outline: none; box-shadow: none; -webkit-tap-highlight-color: transparent;"
->
-    <svg
-        class="w-8 h-8 text-white"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        style="outline: none; box-shadow: none;"
-    >
-        <line x1="3" y1="12" x2="21" y2="12" />
-        <line x1="3" y1="6" x2="21" y2="6" />
-        <line x1="3" y1="18" x2="21" y2="18" />
-    </svg>
-</button>
-<div id="mobile-menu" class="sm:hidden px-4 mt-4 hidden">
-    <ul class="space-y-4">
-        <li><a href="index.html" class="block hover:text-gray-300">Home</a></li>
-        <li><a href="about.html" class="block hover:text-gray-300">About Me</a></li>
-        <li><a href="projects.html" class="block hover:text-gray-300">Projects</a></li>
-        <li><a href="contact.html" class="block hover:text-gray-300">Contact</a></li>
-    </ul>
-</div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="sm:hidden px-4 mt-4 hidden">
+            <ul class="space-y-4">
+                <li><a href="index.html" class="block hover:text-gray-300">Home</a></li>
+                <li><a href="about.html" class="block hover:text-gray-300">About Me</a></li>
+                <li><a href="projects.html" class="block hover:text-gray-300">Projects</a></li>
+                <li><a href="contact.html" class="block hover:text-gray-300">Contact</a></li>
+            </ul>
+        </div>
     </header>
 
     <!-- Main Content -->
@@ -102,13 +108,16 @@
             </div>
         </section>
     </main>
-<script>
-    const menuButton = document.getElementById('menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
 
-    menuButton.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-    });
-</script>
+    <!-- Toggle Script -->
+    <script>
+        const menuButton = document.getElementById('menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
 </body>
+
 </html>
