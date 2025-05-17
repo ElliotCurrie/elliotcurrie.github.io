@@ -45,7 +45,7 @@
                 <h2 class="text-2xl font-semibold mt-16 mb-4">Tools & Workarounds</h2>
                 <p>Due to the limitations of the corporate environment, I had to employ some unconventional but effective solutions to get this project operational:</p>
                 <br>
-                <ul>
+                <ul class="list-disc list-inside space-y-2">
                     <li><strong>Playwright (Python)</strong> – Used to automate interaction with the call recording portal’s browser-based UI. This handles <em>authentication, navigation, and data extraction</em>, bypassing the need for official APIs or backend access.</li>
                     <li><strong>PostgreSQL (Portable)</strong> – Because installing software or provisioning cloud infrastructure isn't permitted, I'm running a <em>portable version of PostgreSQL locally</em>. This gives me a full-featured relational database without relying on IT support or infrastructure.</li>
                     <li><strong>Local Automation</strong> – The Playwright script runs in an <em>infinite loop</em> on an <strong>always-on local machine</strong>, fetching new logs automatically whenever they become available.</li>
@@ -55,14 +55,14 @@
                 <p>At a high level, here’s how the Python script operates:</p>
 
                 <h3 class="font-semibold mt-4">Startup</h3>
-                <ol>
+                <ol class="list-decimal list-inside space-y-2">
                     <li>Open the call recording portal in a <em>headless (invisible) browser</em> and log in</li>
                     <li>Reset all filters to ensure the full call log is visible</li>
                     <li>Sort the table by the <strong>'Created at'</strong> datetime column in <em>descending order</em></li>
                     <li>Click the <strong>'Start Search'</strong> button to apply/reset filters</li>
                 </ol>
                 <h3 class="font-semibold mt-4">Loop</h3>
-                <ol>
+                <ol class="list-decimal list-inside space-y-2">
                     <li>Extract all call logs from the current page into a table</li>
                     <li>Insert all rows into the PostgreSQL database — <em>only rows that don’t already exist</em></li>
                     <li>Return the number of rows inserted</li>
