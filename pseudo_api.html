@@ -52,24 +52,25 @@
             <p>Due to the limitations of the environment, I had to employ some unconventional but effective solutions to get this project operational:</p>
             <br>
             <ul class="list-disc list-inside space-y-2">
-                <li><strong>SharePoint</strong> - Stores function names and corresponding parameters in a list.</li>
-                <li><strong>Power Apps (Free License)</strong> – Uses the function SharePoint list as a source </li>
-                <li><strong>Excel</strong> – XLSX stored locally, but in a folder that syncs with OneDrive. Used as the bridge for cloud to local data transmission.</li>
+                <li><strong>SharePoint</strong> - Used for storing function names and parameters and for logging requests.</li>
+                <li><strong>Power Apps (Free License)</strong> – Uses the request SharePoint list as the source for a form control. Has the spreadsheet (below) as a data source.</li>
+                <li><strong>Excel</strong> – XLSX stored locally, but in a folder that syncs with OneDrive.</li>
                 <li><strong>OneDrive</strong> - Hosts the Excel workbook (above).
-                <li><strong>Python</strong> –  Monitors the spreadsheet locally for changes. Executes functions based on new data.</li>
-                <li><strong>Power Automate (Free License)</strong> - Used for recieving outputs from Python and passing data to it's final destination within the Microsoft ecosytem.</li>
+                <li><strong>Python</strong> –  Monitors the spreadsheet locally for changes (kept open, in an invisible instance). Executes functions based on new data.</li>
+                <li><strong>Power Automate (Free License)</strong> - Used as the bridge from the local environment to the Microsoft ecosystem via HTTP.</li>
                 <li><strong>Always-on PC</strong> - Python script needs to be running to receive and action user requests.</li>
             </ul>
     
             <h2 id="workflow" class="text-2xl font-semibold mt-16 mb-4">Workflow (Simple)</h2>
-            <p>At a high level, this is how the system would operate:</p>
+            <p>At a high level, this is an example for how the system could operate:</p>
     
             <h3 class="font-semibold mt-4 mb-2">Startup</h3>
             <ol class="list-decimal list-inside space-y-2">
                 <li>User fills a form on Power Apps with the function requested, and it's corresponding parameters.</li>
-                <li>On submit, the form response is written to the OneDrive Excel spreadsheet</li>
-                <li>Sort the table by the <strong>'Created at'</strong> datetime column in <em>descending order</em></li>
-                <li>Click the <strong>'Start Search'</strong> button to apply/reset filters</li>
+                <li>For the 'on click' property of the submit button: the form is submitted which writes the response to the request SharePoint list, we then retrieve the form's last submit ID and patch that along with the function name and params to the spreadsheet.</li>
+                <li>The Python script sees the new data in the spreadsheet, and runs the requested function.</li>
+                <li>A response is sent to Power Automate via the 'When a HTTP request is received' trigger with: the SharePoint item ID of the request, the request's status code, and maybe some output data if you want, as the payload.</li>
+                <li>The Power Automate flow updates the SharePoint item with the status code, using the SharePoint item ID. And then you can put any other data you have in it's chosen destination, or not, up to you. Perhaps the requested action takes place locally.</li>
             </ol>
         </div>
     </main>
