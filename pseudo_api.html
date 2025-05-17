@@ -24,6 +24,37 @@
                 </ul>
             </nav>
         </div>
+<button
+    id="menu-button"
+    type="button"
+    aria-label="Toggle navigation"
+    aria-expanded="false"
+    class="sm:hidden p-2 -m-2 rounded-md focus:outline-none focus-visible:outline-none"
+    style="outline: none; box-shadow: none; -webkit-tap-highlight-color: transparent;"
+>
+    <svg
+        class="w-8 h-8 text-white"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        style="outline: none; box-shadow: none;"
+    >
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+    </svg>
+</button>
+<div id="mobile-menu" class="sm:hidden px-4 mt-4 hidden">
+    <ul class="space-y-4">
+        <li><a href="index.html" class="block hover:text-gray-300">Home</a></li>
+        <li><a href="about.html" class="block hover:text-gray-300">About Me</a></li>
+        <li><a href="projects.html" class="block hover:text-gray-300">Projects</a></li>
+        <li><a href="contact.html" class="block hover:text-gray-300">Contact</a></li>
+    </ul>
+</div>
     </header>
     
     <!-- Main Content -->
@@ -65,5 +96,13 @@
             </ol>
         </div>
     </main>
+<script>
+    const menuButton = document.getElementById('menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+</script>
 </body>
 </html>
