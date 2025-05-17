@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pseudo API</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-white text-gray-900">
+
+    <!-- Header Section -->
+    <header class="bg-blue-600 text-white py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <h1 class="text-3xl font-semibold">Elliot Currie</h1>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="index.html" class="hover:text-gray-300">Home</a></li>
+                    <li><a href="about.html" class="hover:text-gray-300">About Me</a></li>
+                    <li><a href="projects.html" class="hover:text-gray-300">Projects</a></li>
+                    <li><a href="contact.html" class="hover:text-gray-300">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
+        <h1 class="text-3xl font-bold text-red-500">WRITE-UP INCOMPLETE</h1>
+        <h1 class="text-3xl font-bold">Pseudo API</h1>
+
+        <label for="toc" class="font-medium">Jump to section:</label>
+        <select id="toc" class="p-2 border rounded" onchange="location.href=this.value;">
+            <option value="#disclaimer">Disclaimer</option>
+            <option value="#overview">Overview</option>
+            <option value="#tools">Tools & Workarounds</option>
+            <option value="#workflow">Workflow (Simple)</option>
+        </select>
+    
+        <div class="prose max-w-none">
+            <h2 id="disclaimer" class="text-2xl font-semibold mb-4">Disclaimer</h2>
+            <p>This project was developed for the contact centre I work at, in my role as a data engineer, within a <strong>constrained corporate IT environment</strong>, where access to Microsoft APIs is heavily restricted and Power Platform licensing is basic. After some tinkering, this seems to be the most cost-effective and secure method i've found.</p>
+                            
+            <h2 id="overview" class="text-2xl font-semibold mt-16 mb-4">Overview</h2>
+            <p>The initial purpose of this project was to allow the transfer of data from the Microsoft ecosystem to my local DB, so it could be merged with another dataset (call logs) before sending data back to the Microsoft ecosystem. However, since then i've realised that this idea has scope to scale.</p>
+            <br>
+            <p>Previously, the only way to access call data was through a <strong>legacy browser-based portal</strong> used for training and quality control. This portal allowed users to export a maximum of <strong>1,000 call records</strong> at a time — and only for calls made <strong>within the past two months</strong>, due to a strict data retention policy.</p>
+            <br>
+            <p>Given that <strong>over 1,000 calls are made every day</strong>, this limitation made granular analysis virtually impossible. While other portals exist for exporting aggregated reports, they offer <strong>little to no control over groupings or filters</strong>, leaving users stuck with the same rigid perspectives.</p>
+    
+            <h2 id="tools" class="text-2xl font-semibold mt-16 mb-4">Tools & Workarounds</h2>
+            <p>Due to the limitations of the corporate environment, I had to employ some unconventional but effective solutions to get this project operational:</p>
+            <br>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>Playwright (Python)</strong> – Used to automate interaction with the call recording portal’s browser-based UI. This handles <em>authentication, navigation, and data extraction</em>, bypassing the need for official APIs or backend access.</li>
+                <li><strong>PostgreSQL (Portable)</strong> – Because installing software or provisioning cloud infrastructure isn't permitted, I'm running a <em>portable version of PostgreSQL locally</em>. This gives me a full-featured relational database without relying on IT support or infrastructure.</li>
+                <li><strong>Local Automation</strong> – The Playwright script runs in an <em>infinite loop</em> on an <strong>always-on local machine</strong>, fetching new logs automatically whenever they become available.</li>
+            </ul>
+    
+            <h2 id="workflow" class="text-2xl font-semibold mt-16 mb-4">Workflow (Simple)</h2>
+            <p>At a high level, here’s how the Python script operates:</p>
+    
+            <h3 class="font-semibold mt-4 mb-2">Startup</h3>
+            <ol class="list-decimal list-inside space-y-2">
+                <li>Open the call recording portal in a <em>headless (invisible) browser</em> and log in</li>
+                <li>Reset all filters to ensure all call logs are visible</li>
+                <li>Sort the table by the <strong>'Created at'</strong> datetime column in <em>descending order</em></li>
+                <li>Click the <strong>'Start Search'</strong> button to apply/reset filters</li>
+            </ol>
+            <h3 class="font-semibold mt-4 mb-2">Loop</h3>
+            <ol class="list-decimal list-inside space-y-2">
+                <li>Extract all call logs from the current page into a table</li>
+                <li>Insert all rows into the PostgreSQL database — <em>only rows that don’t already exist</em></li>
+                <li>Return the number of rows inserted</li>
+                <li>If <strong>all rows were inserted</strong>, go to the <strong>next page</strong> and repeat</li>
+                <li>If <strong>only some rows were inserted</strong>, click <strong>'Start Search'</strong> again to refresh the data</li>
+                <li>Repeat until new data stops appearing</li>
+            </ol>
+        </div>
+    </main>
+</body>
+</html>
