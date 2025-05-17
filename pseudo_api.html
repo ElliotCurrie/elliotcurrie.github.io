@@ -2,107 +2,128 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Pseudo API</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Pseudo API</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
 </head>
 
 <body class="bg-white text-gray-900">
 
-    <!-- Header Section -->
-    <header class="bg-blue-600 text-white py-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-            <h1 class="text-3xl font-semibold">Elliot Currie</h1>
-            <nav>
-                <ul class="flex space-x-6">
-                    <li><a href="index.html" class="hover:text-gray-300">Home</a></li>
-                    <li><a href="about.html" class="hover:text-gray-300">About Me</a></li>
-                    <li><a href="projects.html" class="hover:text-gray-300">Projects</a></li>
-                    <li><a href="contact.html" class="hover:text-gray-300">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-<button
-    id="menu-button"
-    type="button"
-    aria-label="Toggle navigation"
-    aria-expanded="false"
-    class="sm:hidden p-2 -m-2 rounded-md focus:outline-none focus-visible:outline-none"
-    style="outline: none; box-shadow: none; -webkit-tap-highlight-color: transparent;"
->
-    <svg
-        class="w-8 h-8 text-white"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        style="outline: none; box-shadow: none;"
-    >
-        <line x1="3" y1="12" x2="21" y2="12" />
-        <line x1="3" y1="6" x2="21" y2="6" />
-        <line x1="3" y1="18" x2="21" y2="18" />
-    </svg>
-</button>
-<div id="mobile-menu" class="sm:hidden px-4 mt-4 hidden">
-    <ul class="space-y-4">
+  <!-- Header Section -->
+  <header class="bg-blue-600 text-white py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+      <h1 class="text-3xl font-semibold">Elliot Currie</h1>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden sm:block">
+        <ul class="flex space-x-6">
+          <li><a href="index.html" class="hover:text-gray-300">Home</a></li>
+          <li><a href="about.html" class="hover:text-gray-300">About Me</a></li>
+          <li><a href="projects.html" class="hover:text-gray-300">Projects</a></li>
+          <li><a href="contact.html" class="hover:text-gray-300">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Hamburger Button (Mobile Only) -->
+      <button
+        id="menu-button"
+        type="button"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        class="sm:hidden p-2 -m-2 rounded-md focus:outline-none focus-visible:outline-none"
+        style="outline: none; box-shadow: none; -webkit-tap-highlight-color: transparent;"
+      >
+        <svg
+          class="w-8 h-8 text-white"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          style="outline: none; box-shadow: none;"
+        >
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div id="mobile-menu" class="sm:hidden px-4 mt-4 hidden">
+      <ul class="space-y-4">
         <li><a href="index.html" class="block hover:text-gray-300">Home</a></li>
         <li><a href="about.html" class="block hover:text-gray-300">About Me</a></li>
         <li><a href="projects.html" class="block hover:text-gray-300">Projects</a></li>
         <li><a href="contact.html" class="block hover:text-gray-300">Contact</a></li>
-    </ul>
-</div>
-    </header>
-    
-    <!-- Main Content -->
-    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
-        <h1 class="text-3xl font-bold text-red-500">WRITE-UP INCOMPLETE - Proof of concept to be added. It does work pretty well though, trust me bro.</h1>
-        <h1 class="text-3xl font-bold">Pseudo API</h1>
-    
-        <div class="prose max-w-none">
-            <h2 id="disclaimer" class="text-2xl font-semibold mb-4">Disclaimer</h2>
-            <p>This project was developed for the contact centre I work at, in my role as a data engineer, within a <strong>constrained corporate IT environment</strong>, where access to Microsoft APIs is heavily restricted and Power Platform licensing is basic. After some tinkering, this seems to be the most reliable/seamless method i've found given the constraints.</p>
-                            
-            <h2 id="overview" class="text-2xl font-semibold mt-16 mb-4">Overview</h2>
-            <p>The initial purpose of this project was to allow the transfer of data from the Microsoft ecosystem to my local DB, so it could be merged with another dataset (call logs) before being sent back to the Microsoft ecosystem. However, since then i've realised that this idea has scope to scale.</p>
-            <br>
-            <p>The problem this solves could essentially be what you want it to be. It's the reason I haven't scaled this idea yet, i'm waiting for a concrete use case, beyond what i'm already using it for.</p>
-    
-            <h2 id="tools" class="text-2xl font-semibold mt-16 mb-4">Tools & Workarounds</h2>
-            <p>Due to the limitations of the environment, I had to employ some unconventional but effective solutions to get this project operational:</p>
-            <br>
-            <ul class="list-disc list-inside space-y-2">
-                <li><strong>SharePoint</strong> - Used for storing function names and parameters and for logging requests.</li>
-                <li><strong>Power Apps (Free License)</strong> – Uses the request SharePoint list as the source for a form control. Has the spreadsheet (below) as a data source.</li>
-                <li><strong>Excel</strong> – XLSX stored locally, but in a folder that syncs with OneDrive.</li>
-                <li><strong>OneDrive</strong> - Hosts the Excel workbook (above).
-                <li><strong>Python</strong> –  Monitors the spreadsheet locally for changes (kept open, in an invisible instance). Executes functions based on new data. All functions are aynchronous so they don't block each other.</li>
-                <li><strong>Power Automate (Free License)</strong> - Used as the bridge from the local environment to the Microsoft ecosystem via HTTP.</li>
-                <li><strong>Always-on PC</strong> - Python script needs to be running to receive and action user requests.</li>
-            </ul>
-    
-            <h2 id="workflow" class="text-2xl font-semibold mt-16 mb-4">Workflow</h2>
-            <p>At a high level, this is an example for how the system could operate:</p>
-    
-            <ol class="list-decimal list-inside space-y-5 mt-4">
-                <li>User fills a form on Power Apps with the function requested, and it's corresponding parameters.</li>
-                <li>For the 'on click' property of the submit button: the form is submitted which writes the response to the request SharePoint list, we then retrieve the form's last submit ID and patch that along with the function name and params to the spreadsheet.</li>
-                <li>The Python script sees the new data in the spreadsheet, and runs the requested function. The new data is written to another local file or a database as a local request log and as a method of de-duplicating the spreadsheet data to identify new requests.</li>
-                <li>A response is sent to Power Automate via the 'When a HTTP request is received' trigger with: the SharePoint item ID of the request, the request's status code, and maybe some output data if you want, as the payload.</li>
-                <li>The Power Automate flow updates the SharePoint item with the status code, using the SharePoint item ID. And then you can put any other data you have in it's chosen destination, or not, up to you. Perhaps the requested action takes place locally.</li>
-            </ol>
-        </div>
-    </main>
-<script>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
+    <h1 class="text-3xl font-bold text-red-500">
+      WRITE-UP INCOMPLETE - Proof of concept to be added. It does work pretty well though, trust me bro.
+    </h1>
+    <h1 class="text-3xl font-bold">Pseudo API</h1>
+
+    <div class="prose max-w-none">
+      <h2 id="disclaimer" class="text-2xl font-semibold mb-4">Disclaimer</h2>
+      <p>
+        This project was developed for the contact centre I work at, in my role as a data engineer, within a
+        <strong>constrained corporate IT environment</strong>, where access to Microsoft APIs is heavily restricted
+        and Power Platform licensing is basic. After some tinkering, this seems to be the most reliable/seamless
+        method I've found given the constraints.
+      </p>
+
+      <h2 id="overview" class="text-2xl font-semibold mt-16 mb-4">Overview</h2>
+      <p>
+        The initial purpose of this project was to allow the transfer of data from the Microsoft ecosystem to my local
+        DB, so it could be merged with another dataset (call logs) before being sent back to the Microsoft ecosystem.
+        However, since then I've realised that this idea has scope to scale.
+      </p>
+      <p>
+        The problem this solves could essentially be what you want it to be. It's the reason I haven't scaled this idea
+        yet — I'm waiting for a concrete use case, beyond what I'm already using it for.
+      </p>
+
+      <h2 id="tools" class="text-2xl font-semibold mt-16 mb-4">Tools & Workarounds</h2>
+      <p>Due to the limitations of the environment, I had to employ some unconventional but effective solutions to get
+        this project operational:</p>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>SharePoint</strong> – Used for storing function names, parameters, and logging requests.</li>
+        <li><strong>Power Apps (Free License)</strong> – Hosts a form tied to the SharePoint list and Excel workbook.</li>
+        <li><strong>Excel</strong> – Stored locally but synced with OneDrive for external access.</li>
+        <li><strong>OneDrive</strong> – Hosts the Excel workbook and keeps it synced.</li>
+        <li><strong>Python</strong> – Monitors the Excel sheet locally and executes functions asynchronously.</li>
+        <li><strong>Power Automate (Free License)</strong> – Receives responses via HTTP and updates SharePoint accordingly.</li>
+        <li><strong>Always-on PC</strong> – Required to run the local Python listener.</li>
+      </ul>
+
+      <h2 id="workflow" class="text-2xl font-semibold mt-16 mb-4">Workflow</h2>
+      <p>Here’s how it operates at a high level:</p>
+      <ol class="list-decimal list-inside space-y-5 mt-4">
+        <li>User submits a form via Power Apps with function and parameters.</li>
+        <li>The form submission writes to SharePoint and patches the data to the synced Excel workbook.</li>
+        <li>Python detects new spreadsheet entries, runs the appropriate function, and logs locally.</li>
+        <li>Python responds via HTTP trigger to Power Automate with request ID, status, and optional output.</li>
+        <li>Power Automate updates SharePoint with the response and handles any follow-up actions.</li>
+      </ol>
+    </div>
+  </main>
+
+  <!-- Mobile Menu Toggle Script -->
+  <script>
     const menuButton = document.getElementById('menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
 
     menuButton.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
+      mobileMenu.classList.toggle('hidden');
     });
-</script>
+  </script>
 </body>
+
 </html>
