@@ -149,12 +149,11 @@
       <ul class="list-disc list-inside space-y-2 mt-4">
         <li>open_excel</li>
         <li>read_table</li>
-        <li><strong>Power Apps (Free License)</strong> – Hosts a form tied to the SharePoint list and Excel workbook.</li>
       </ul>
       <h2 id="open_excel_function" class="text-xl font-semibold mt-8 mb-4">open_excel</h2>
       <p>
-        This function does what you might guess it would. It opens an instance of excel, and opens ‘requests.xlsx’. It takes two arguments, 'xl_path' and 'sheet_name'. 
-        'xl_path' is the path to 'request.xlsx'. And 'sheet_name' is the name of the sheet that contains the table we created.
+        This function does what you might guess it would. It opens an instance of excel, opens a particular file, and outputs a worksheet object. It takes two input arguments, 'xl_path' and 'sheet_name'. 
+        'xl_path' is the path to 'request.xlsx'. And 'sheet_name' is the name of the worksheet that contains the table we created.
       </p>
       <br>
       <pre><code>
@@ -171,6 +170,23 @@
       
           # Return the worksheet as an output using the prefined sheet name
           return wb.sheets[sheet_name]
+      </code></pre>
+      <h2 id="read_table_function" class="text-xl font-semibold mt-8 mb-4">read_table</h2>
+      <p>
+        This function gets a table object from within a worksheet using the table's name, gets the cell range that the table exists in, and outputs the cell values in that
+        cell range as a list of lists. Each child list within the parent list respresents a row of data in the table.
+      </p>
+      <br>
+      <pre><code>
+        def read_table(ws, table_name):
+          # Get the table object using the predefined table name
+          table = ws.api.ListObjects(table_name)
+      
+          # Get the cell range of the table
+          data_range = table.Range
+      
+          # Return the data within the table cell range as a list of lists
+          return ws.range((data_range.Row, data_range.Column)).expand().value
       </code></pre>
     </div>
   </main>
