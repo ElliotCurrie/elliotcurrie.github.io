@@ -144,7 +144,19 @@
       </p>
       <div class="bg-grey-500">
         <pre><code>
-          
+          def open_excel(xl_path, sheet_name):
+            # Start a visible Excel instance
+            app = xw.App(visible=True)
+        
+            # Open the predefined path in Excel instance
+            wb = app.books.open(xl_path)
+        
+            # Close new workbook that opens by default from running xw.App()
+            if any(book.name == "Book1" for book in app.books):
+                app.books["Book1"].close()
+        
+            # Return the worksheet as an output using the prefined sheet name
+            return wb.sheets[sheet_name]
         </code></pre>
       </div>
     </div>
