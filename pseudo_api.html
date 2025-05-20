@@ -107,11 +107,46 @@
       <p>Here’s how it operates at a high level:</p>
       <ol class="list-decimal list-inside space-y-5 mt-4">
         <li>User submits a form via Power Apps with function and parameters.</li>
-        <li>The form submission writes to SharePoint and patches the data to the synced Excel workbook.</li>
-        <li>Python detects new spreadsheet entries, runs the appropriate function, and logs locally.</li>
-        <li>Python responds via HTTP trigger to Power Automate with request ID, status, and optional output.</li>
-        <li>Power Automate updates SharePoint with the response and handles any follow-up actions.</li>
+        <li>On submit, Power Apps writes to SharePoint and the synced Excel workbook.</li>
+        <li>Python detects new spreadsheet entries, and runs the function described.</li>
+        <li>Python makes a HTTP request to a Power Automate HTTP trigger.</li>
+        <li>Power Automate updates SharePoint, logging the outcome and handles any follow-up actions.</li>
       </ol>
+
+      <h2 id="technical_breakdown" class="text-2xl font-semibold mt-16 mb-4">Technical Breakdown</h2>
+      <p>
+        First, we’ll start by creating the spreadsheet to receive requests from Power Apps. 
+        We’ll create a table with the headers: ‘sharepoint_item_id, ‘function’, and ‘parameters’ (Figure 1). 
+        I’ve named this table ‘request_log’ so it’s recognisable in the Power App’s list of data sources if we ever want to add more excel sources down the line.
+      </p>
+      <img src="requests_excel.png">
+      <p>
+        Then we’ll save that to a folder that syncs with OneDrive with the name ‘requests’ (Figure 2), 
+        ensuring that the OneDrive folder is part of the same environment where we’ll create the Power App, 
+        SharePoint list, and the Power Automate flow. In my case, my environment is ‘EC’.
+        We’ll also create a CSV called ‘requests_actioned’ (Figure 2), containing the same headers as OneDrive spreadsheet as well as some additional headers: 
+        ‘created, ‘completed’, ‘status’, and ‘failure_reason’. I’ve saved this to the same folder for this example but it’s better to keep this file in an offline
+        folder to avoid needless disk usage from OneDrive syncs. It would be wise to create a backup file in OneDrive though, which could be overwritten daily during downtime.
+      </p>
+      <img src="onedrive_files_1.png">
+      <p>
+        Secondly, we’ll need a Python script to monitor the spreadsheet we’ve just created. To be able to catch new data as soon as it syncs, we need to ensure
+        that the spreadsheet is open. Because of this, we can’t use something like Pandas to read the spreadsheet as it’ll be read from disk. In practice, 
+        if you were to use Pandas to poll the spreadsheet, you would find it takes an excessive amount of time to see new data which isn’t ideal for this use case. 
+        Therefore, we need to use a library like xlwings, which will allow us to keep the spreadsheet open and read it in a loop.
+      </p>
+      <p>
+        To monitor our ‘requests’ spreadsheet, we’ll define a couple of functions:
+      </p>
+      <h2 id="open_excel_function" class="text-xl font-semibold mt-16 mb-4">open_excel</h2>
+      <p>
+        This function does what you might guess it might, it opens an instance of excel, and opens ‘requests.xlsx’ (Figure 3).
+      </p>
+      <div class="bg-grey-500">
+        <pre><code>
+          
+        </code></pre>
+      </div>
     </div>
   </main>
 
