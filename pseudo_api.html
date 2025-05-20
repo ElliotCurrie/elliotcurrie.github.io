@@ -142,12 +142,19 @@
         if you were to use Pandas to poll the spreadsheet, you would find it takes an excessive amount of time to see new data which isn’t ideal for this use case. 
         Therefore, we need to use a library like xlwings, which will allow us to keep the spreadsheet open and read it in a loop.
       </p>
+      <br>
       <p>
         To monitor our ‘requests’ spreadsheet, we’ll define a couple of functions:
       </p>
+      <ul class="list-disc list-inside space-y-2 mt-4">
+        <li>open_excel</li>
+        <li>read_table</li>
+        <li><strong>Power Apps (Free License)</strong> – Hosts a form tied to the SharePoint list and Excel workbook.</li>
+      </ul>
       <h2 id="open_excel_function" class="text-xl font-semibold mt-8 mb-4">open_excel</h2>
       <p>
-        This function does what you might guess it would. It opens an instance of excel, and opens ‘requests.xlsx’ (Figure 3).
+        This function does what you might guess it would. It opens an instance of excel, and opens ‘requests.xlsx’. It takes two arguments, 'xl_path' and 'sheet_name'. 
+        'xl_path' is the path to 'request.xlsx'. And 'sheet_name' is the name of the sheet that contains the table we created.
       </p>
       <br>
       <pre><code>
