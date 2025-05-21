@@ -114,7 +114,7 @@
       </ol>
 
       <h2 id="technical_breakdown" class="text-2xl font-semibold mt-16 mb-4">Technical Breakdown</h2>
-      <h3 id="excel_workbook" class="text-lg font-semibold mb-4">Excel Workbook</h3>
+      <h3 id="excel_workbook" class="text-xl font-semibold mb-4">Excel Workbook</h3>
       <p>
         We’ll start by creating the spreadsheet to receive requests from Power Apps. 
         We’ll create a table with the headers: ‘sharepoint_item_id, ‘function’, and ‘parameters’ (Figure 1). 
@@ -128,7 +128,7 @@
         ensuring that the OneDrive folder is part of the same environment where we’ll create the Power App, 
         SharePoint list, and the Power Automate flow. In my case, my environment is ‘EC’.
       </p>
-      <h3 id="excel_workbook" class="text-lg font-semibold mb-4 mt-8">Excel Workbook</h3>
+      <h3 id="excel_workbook" class="text-xl font-semibold mb-4 mt-8">Excel Workbook</h3>
       <p>
         We’ll also create a CSV called ‘requests_actioned’ (Figure 2), containing the same headers as OneDrive spreadsheet as well as some additional headers: 
         ‘created, ‘completed’, ‘status’, and ‘failure_reason’. I’ve saved this to the same folder for this example but it’s better to keep this file in an offline
@@ -136,7 +136,7 @@
       </p>
       <br>
       <img src="onedrive_files_1.png" class="w-full">
-      <h3 id="python_script" class="text-lg font-semibold mb-4 mt-8">Python Script (Part 1)</h3>
+      <h3 id="python_script" class="text-xl font-semibold mb-4 mt-8">Python Script (Part 1)</h3>
       <p>
         We’ll need a Python script to monitor the spreadsheet we’ve just created. To be able to catch new data as soon as it syncs, we need to ensure
         that the spreadsheet is open. Because of this, we can’t use something like Pandas to read the spreadsheet as it’ll be read from disk. In practice, 
@@ -162,7 +162,7 @@
         We'll also define a function for users to call, <strong>lookup_a_postcode</strong>, which has aiohttp as a dependancy. We'll use aiohtttp to make asynchronous HTTP
         requests.
       </p>
-      <h2 id="open_excel_function" class="text-xl font-semibold mt-8 mb-4">open_excel</h2>
+      <h3 id="open_excel_function" class="text-lg font-semibold mt-8 mb-4">open_excel</h3>
       <p>
         This function opens an instance of excel, opens a particular file, and outputs a worksheet object. It takes two input arguments, 'xl_path' and 'sheet_name'.
       </p>
@@ -185,7 +185,7 @@
             # Return the worksheet as an output using the prefined sheet name
             return wb.sheets[sheet_name]
       </code></pre>
-      <h2 id="read_table_function" class="text-xl font-semibold mt-8 mb-4">read_table</h2>
+      <h3 id="read_table_function" class="text-lg font-semibold mt-8 mb-4">read_table</h3>
       <p>
         This function gets a table object from within a worksheet using the table's name, gets the cell range that the table exists in, and outputs the cell values in that
         cell range as a list of lists. Each child list within the parent list respresents a row of data in the table. It takes two input arguments, 'ws' and 'table_name'.
@@ -205,7 +205,7 @@
             # Return the data within the table cell range as a list of lists
             return ws.range((data_range.Row, data_range.Column)).expand().value
       </code></pre>
-      <h2 id="read_csv_function" class="text-xl font-semibold mt-8 mb-4">read_csv</h2>
+      <h3 id="read_csv_function" class="text-lg font-semibold mt-8 mb-4">read_csv</h3>
       <p>
         This function reads a csv and outputs the data within as a list of lists, just like our 'read_table' function. It takes one input argument, 'csv_path'. By default,
         the 'mode' argument of the open function is set to 'r' (read) but i've added it in for the sake of clarity.
@@ -228,7 +228,7 @@
                 # Read csv and return data as a list of lists
                 return list(csv.reader(f))
       </code></pre>
-      <h2 id="append_csv_function" class="text-xl font-semibold mt-8 mb-4">append_csv</h2>
+      <h3 id="append_csv_function" class="text-lg font-semibold mt-8 mb-4">append_csv</h3>
       <p>
         This function appends a row of data to a csv and outputs the data within as a list of lists, just like our 'read_table' function. It takes one input argument, 'csv_path'.
       </p>
@@ -243,7 +243,7 @@
                 # Write input data as rows to csv
                 csv.writer(f).writerow(data)
       </code></pre>
-      <h2 id="lookup_a_postcode_function" class="text-xl font-semibold mt-8 mb-4">lookup_a_postcode</h2>
+      <h3 id="lookup_a_postcode_function" class="text-lg font-semibold mt-8 mb-4">lookup_a_postcode</h3>
       <p>
         This function makes a HTTP GET request to get data from an API, waits for the response, constructs a payload, then sends the payload in a HTTP POST request to
         a Power Automate flow that has a 'When a HTTP request is received' trigger. This is an asynchronous function, which is represented by the 'async' keyword at the
@@ -281,12 +281,12 @@
                     # Return response as an output once received
                     return await power_automate_response.json()
       </code></pre>
-      <h2 id="power_automate" class="text-2xl font-semibold mt-16 mb-4">Power Automate</h2>
+      <h3 id="power_automate" class="text-xl font-semibold mt-16 mb-4">Power Automate</h3>
       <p>
         You may have noticed that in the lookup_a_postcode function from the previous section, we've defined the power_automate_url variable as an empty string. Now we'll
         set up a Power Automate cloud flow with a 'When a HTTP request is recieved' trigger.
       </p>
-      <h2 id="discussion" class="text-2xl font-semibold mt-16 mb-4">Discussion</h2>
+      <h2 id="discussion" class="text-xl font-semibold mt-16 mb-4">Discussion</h2>
       <p>
         If you're familiar with Power Automate Cloud, you'll know that there is a 'HTTP' action that allows you to do what I described above without leaving the Microsoft ecosystem.
         You may also know that the 'HTTP' action is a premium feature in Power Automate Cloud. There are however some drawbacks to using Power Automate Cloud for this, such as
