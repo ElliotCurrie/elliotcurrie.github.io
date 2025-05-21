@@ -144,18 +144,26 @@
       </p>
       <br>
       <p>
-        To monitor our ‘requests’ spreadsheet, we’ll define a couple of functions:
+        To get the data from 'requests.xlsx', and read from and write to 'requests_actioned.csv', we’ll define a few functions:
       </p>
       <ul class="list-disc list-inside space-y-2 mt-4">
         <li>open_excel</li>
         <li>read_table</li>
+        <li>read_csv</li>
+        <li>append_csv</li>
       </ul>
+      <br>
+      <p>
+        The dependancies for this set of functions are xlwings (imported as xw), and csv.
+      </p>
       <h2 id="open_excel_function" class="text-xl font-semibold mt-8 mb-4">open_excel</h2>
       <p>
-        This function does what you might guess it would. It opens an instance of excel, opens a particular file, and outputs a worksheet object. It takes two input arguments, 'xl_path' and 'sheet_name'. 
-        'xl_path' is the path to 'request.xlsx'. And 'sheet_name' is the name of the worksheet that contains the table we created.
+        This function does what you might guess it would. It opens an instance of excel, opens a particular file, and outputs a worksheet object. It takes two input arguments, 'xl_path' and 'sheet_name'.
       </p>
       <br>
+      <p>
+        In this example, 'xl_path' is the local path to 'request.xlsx', and 'sheet_name' is the name of the worksheet that contains the table we created.
+      </p>
       <pre><code>
         def open_excel(xl_path, sheet_name):
           # Start a visible Excel instance
@@ -174,9 +182,12 @@
       <h2 id="read_table_function" class="text-xl font-semibold mt-8 mb-4">read_table</h2>
       <p>
         This function gets a table object from within a worksheet using the table's name, gets the cell range that the table exists in, and outputs the cell values in that
-        cell range as a list of lists. Each child list within the parent list respresents a row of data in the table.
+        cell range as a list of lists. Each child list within the parent list respresents a row of data in the table. It takes two input arguments, 'ws' and 'table_name'.
       </p>
       <br>
+      <p>
+        In this example, 'ws' is the worksheet object that we get from the 'open_excel' function, and 'table_name' is the name of the table in 'requests.xlsx'.
+      </p>
       <pre><code>
         def read_table(ws, table_name):
           # Get the table object using the predefined table name
@@ -187,6 +198,58 @@
       
           # Return the data within the table cell range as a list of lists
           return ws.range((data_range.Row, data_range.Column)).expand().value
+      </code></pre>
+      <h2 id="read_csv_function" class="text-xl font-semibold mt-8 mb-4">read_csv</h2>
+      <p>
+        This function reads a csv and outputs the data within as a list of lists, just like our 'read_table' function. It takes one input argument, 'csv_path'.
+      </p>
+      <br>
+      <p>
+        In this example, 'csv_path' is the local path to 'requests_actioned.csv'.
+      </p>
+      <pre><code>
+        def read_csv(csv_path):
+          # Open csv at the predefined path
+          with open(csv_path, newline='') as f:
+                  # Read csv and return data as a list of lists
+                  return list(csv.reader(f))
+      </code></pre>
+      <h2 id="read_csv_function" class="text-xl font-semibold mt-8 mb-4">read_csv</h2>
+      <p>
+        This function reads a csv and outputs the data within as a list of lists, just like our 'read_table' function. It takes one input argument, 'csv_path'. By default,
+        the 'mode' argument of the open() function is set to 'r' (read) but i've added it in for the sake of clarity.
+      </p>
+      <br>
+      <p>
+        Another argument in the open() function worth mentioning is 'newline'. In a csv, each row ends with a newline character when written (\r\n on Windows, and \n 
+        on UNIX/MacOS), which you can't see unless you read it as bytes. Python replaces \n with \r\n by default in csvs when read as text. So because we've written 
+        the csv with Windows, Python converts \r\n to \r\r\n, which would create blank rows. So by setting the newline argument to an empty string, we're telling Python 
+        to ignore the newline characters, and we let the csv module instead handle it correctly with 'csv.reader()'.
+      </p>
+      <p>
+        In this example, 'csv_path' is the local path to 'requests_actioned.csv'.
+      </p>
+      <pre><code>
+        def read_csv(csv_path):
+          # Open csv at the predefined path
+          with open(csv_path, mode='r', newline='') as f:
+                  # Read csv and return data as a list of lists
+                  return list(csv.reader(f))
+      </code></pre>
+      <h2 id="append_csv_function" class="text-xl font-semibold mt-8 mb-4">append_csv</h2>
+      <p>
+        This function appends a row of data to a csv and outputs the data within as a list of lists, just like our 'read_table' function. It takes one input argument, 'csv_path'.
+      </p>
+      <br>
+      <p>
+        In this example, 'csv_path' is the local path to 'requests_actioned.csv'.
+      </p>
+      <pre><code>
+        def append_csv(csv_path, data):
+          # Open csv at the predefined path in append mode
+          with open(csv_path, mode='a', newline='') as f:
+              # Write input data as rows to csv
+              csv.writer(f).writerow(data)
       </code></pre>
     </div>
   </main>
