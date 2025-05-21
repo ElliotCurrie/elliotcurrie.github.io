@@ -114,8 +114,9 @@
       </ol>
 
       <h2 id="technical_breakdown" class="text-2xl font-semibold mt-16 mb-4">Technical Breakdown</h2>
+      <h3 id="excel_workbook" class="text-lg font-semibold mb-4">Excel Workbook</h3>
       <p>
-        First, we’ll start by creating the spreadsheet to receive requests from Power Apps. 
+        We’ll start by creating the spreadsheet to receive requests from Power Apps. 
         We’ll create a table with the headers: ‘sharepoint_item_id, ‘function’, and ‘parameters’ (Figure 1). 
         I’ve named this table ‘request_log’ so it’s recognisable in the Power App’s list of data sources if we ever want to add more excel sources down the line.
       </p>
@@ -127,7 +128,7 @@
         ensuring that the OneDrive folder is part of the same environment where we’ll create the Power App, 
         SharePoint list, and the Power Automate flow. In my case, my environment is ‘EC’.
       </p>
-      <br>
+      <h3 id="excel_workbook" class="text-lg font-semibold mb-4 mt-8">Excel Workbook</h3>
       <p>
         We’ll also create a CSV called ‘requests_actioned’ (Figure 2), containing the same headers as OneDrive spreadsheet as well as some additional headers: 
         ‘created, ‘completed’, ‘status’, and ‘failure_reason’. I’ve saved this to the same folder for this example but it’s better to keep this file in an offline
@@ -135,9 +136,9 @@
       </p>
       <br>
       <img src="onedrive_files_1.png" class="w-full">
-      <br>
+      <h3 id="python_script" class="text-lg font-semibold mb-4 mt-8">Python Script</h3>
       <p>
-        Secondly, we’ll need a Python script to monitor the spreadsheet we’ve just created. To be able to catch new data as soon as it syncs, we need to ensure
+        We’ll need a Python script to monitor the spreadsheet we’ve just created. To be able to catch new data as soon as it syncs, we need to ensure
         that the spreadsheet is open. Because of this, we can’t use something like Pandas to read the spreadsheet as it’ll be read from disk. In practice, 
         if you were to use Pandas to poll the spreadsheet, you would find it takes an excessive amount of time to see new data which isn’t ideal for this use case. 
         Therefore, we need to use a library like xlwings, which will allow us to keep the spreadsheet open and read it in a loop.
