@@ -201,21 +201,6 @@
       </code></pre>
       <h2 id="read_csv_function" class="text-xl font-semibold mt-8 mb-4">read_csv</h2>
       <p>
-        This function reads a csv and outputs the data within as a list of lists, just like our 'read_table' function. It takes one input argument, 'csv_path'.
-      </p>
-      <br>
-      <p>
-        In this example, 'csv_path' is the local path to 'requests_actioned.csv'.
-      </p>
-      <pre><code>
-        def read_csv(csv_path):
-          # Open csv at the predefined path
-          with open(csv_path, newline='') as f:
-                  # Read csv and return data as a list of lists
-                  return list(csv.reader(f))
-      </code></pre>
-      <h2 id="read_csv_function" class="text-xl font-semibold mt-8 mb-4">read_csv</h2>
-      <p>
         This function reads a csv and outputs the data within as a list of lists, just like our 'read_table' function. It takes one input argument, 'csv_path'. By default,
         the 'mode' argument of the open() function is set to 'r' (read) but i've added it in for the sake of clarity.
       </p>
