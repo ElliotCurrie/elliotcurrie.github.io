@@ -202,14 +202,14 @@
       <h2 id="read_csv_function" class="text-xl font-semibold mt-8 mb-4">read_csv</h2>
       <p>
         This function reads a csv and outputs the data within as a list of lists, just like our 'read_table' function. It takes one input argument, 'csv_path'. By default,
-        the 'mode' argument of the open() function is set to 'r' (read) but i've added it in for the sake of clarity.
+        the 'mode' argument of the open function is set to 'r' (read) but i've added it in for the sake of clarity.
       </p>
       <br>
       <p>
-        Another argument in the open() function worth mentioning is 'newline'. In a csv, each row ends with a newline character when written (\r\n on Windows, and \n 
+        Another argument in the open function worth mentioning is 'newline'. In a csv, each row ends with a newline character when written (\r\n on Windows, and \n 
         on UNIX/MacOS), which you can't see unless you read it as bytes. Python replaces \n with \r\n by default in csvs when read as text. So because we've written 
         the csv with Windows, Python converts \r\n to \r\r\n, which would create blank rows. So by setting the newline argument to an empty string, we're telling Python 
-        to ignore the newline characters, and we let the csv module instead handle it correctly with 'csv.reader()'.
+        to ignore the newline characters, and we let the csv module instead handle it correctly with the 'csv.reader' function.
       </p>
       <br>
       <p>
