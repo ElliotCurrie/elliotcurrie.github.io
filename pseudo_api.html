@@ -155,7 +155,12 @@
       </ul>
       <br>
       <p>
-        The dependancies for this set of functions are xlwings (imported as xw), and csv.
+        The dependancies for this set of functions are xlwings (imported as xw) for reading 'requests.xlsx', and csv for reading and appending to 'requests_actioned.csv'.
+      </p>
+      <br>
+      <p>
+        We'll also define a function for users to call, <strong>lookup_a_postcode</strong>, which has aiohttp as a dependancy. We'll use aiohtttp to make asynchronous HTTP
+        requests.
       </p>
       <h2 id="open_excel_function" class="text-xl font-semibold mt-8 mb-4">open_excel</h2>
       <p>
@@ -167,18 +172,18 @@
       </p>
       <pre><code>
         def open_excel(xl_path, sheet_name):
-          # Start a visible Excel instance
-          app = xw.App(visible=True)
-      
-          # Open the predefined path in Excel instance
-          wb = app.books.open(xl_path)
-      
-          # Close new workbook that opens by default from running xw.App()
-          if any(book.name == "Book1" for book in app.books):
-              app.books["Book1"].close()
-      
-          # Return the worksheet as an output using the prefined sheet name
-          return wb.sheets[sheet_name]
+            # Start a visible Excel instance
+            app = xw.App(visible=True)
+        
+            # Open the predefined path in Excel instance
+            wb = app.books.open(xl_path)
+        
+            # Close new workbook that opens by default from running xw.App()
+            if any(book.name == "Book1" for book in app.books):
+                app.books["Book1"].close()
+        
+            # Return the worksheet as an output using the prefined sheet name
+            return wb.sheets[sheet_name]
       </code></pre>
       <h2 id="read_table_function" class="text-xl font-semibold mt-8 mb-4">read_table</h2>
       <p>
@@ -191,14 +196,14 @@
       </p>
       <pre><code>
         def read_table(ws, table_name):
-          # Get the table object using the predefined table name
-          table = ws.api.ListObjects(table_name)
-      
-          # Get the cell range of the table
-          data_range = table.Range
-      
-          # Return the data within the table cell range as a list of lists
-          return ws.range((data_range.Row, data_range.Column)).expand().value
+            # Get the table object using the predefined table name
+            table = ws.api.ListObjects(table_name)
+        
+            # Get the cell range of the table
+            data_range = table.Range
+        
+            # Return the data within the table cell range as a list of lists
+            return ws.range((data_range.Row, data_range.Column)).expand().value
       </code></pre>
       <h2 id="read_csv_function" class="text-xl font-semibold mt-8 mb-4">read_csv</h2>
       <p>
@@ -218,10 +223,10 @@
       </p>
       <pre><code>
         def read_csv(csv_path):
-          # Open csv at the predefined path
-          with open(csv_path, mode='r', newline='') as f:
-                  # Read csv and return data as a list of lists
-                  return list(csv.reader(f))
+            # Open csv at the predefined path
+            with open(csv_path, mode='r', newline='') as f:
+                # Read csv and return data as a list of lists
+                return list(csv.reader(f))
       </code></pre>
       <h2 id="append_csv_function" class="text-xl font-semibold mt-8 mb-4">append_csv</h2>
       <p>
@@ -233,11 +238,63 @@
       </p>
       <pre><code>
         def append_csv(csv_path, data):
-          # Open csv at the predefined path in append mode
-          with open(csv_path, mode='a', newline='') as f:
-              # Write input data as rows to csv
-              csv.writer(f).writerow(data)
+            # Open csv at the predefined path in append mode
+            with open(csv_path, mode='a', newline='') as f:
+                # Write input data as rows to csv
+                csv.writer(f).writerow(data)
       </code></pre>
+      <h2 id="lookup_a_postcode_function" class="text-xl font-semibold mt-8 mb-4">lookup_a_postcode</h2>
+      <p>
+        This function makes a HTTP GET request to get data from an API, waits for the response, constructs a payload, then sends the payload in a HTTP POST request to
+        a Power Automate flow that has a 'When a HTTP request is received' trigger. This is an asynchronous function, which is represented by the 'async' keyword at the
+        beginning of the function definition. This allows us to execute this function in the background without blocking the 'main' function of the script (explained in Part 2).
+        As we can run functions in the background, it allows multiple separate instances of this function to be running at the same time.
+      </p>
+      <pre><code>
+        async def postcode_lookup(sharepoint_item_id, recipient_email, postcode):
+            # Define the endpoint url for the api we're going to get data from
+            postcode_lookup_url = f"https://api.postcodes.io/postcodes/{postcode}"
+
+            # Start an asynchronous HTTP session
+            async with aiohttp.ClientSession() as session:
+                # Make the GET request and wait for the response
+                async with session.get(postcode_lookup_url) as postcode_lookup_response:
+                    # Store the response in a variable
+                    postcode_lookup_data = await postcode_lookup_response.json()
+                
+                # Extract the value of the 'result' key
+                postcode_data = postcode_lookup_data["result"]
+        
+                # Construct the data payload to send to power automate, as json
+                payload = {
+                    "sharepoint_item_id": sharepoint_item_id,
+                    "recipient_email": recipient_email,
+                    "postcode_data": postcode_data,
+                    "status": "completed"
+                }
+        
+                # Define the endpoint url generated by the power automate HTTP trigger
+                power_automate_url = ''
+        
+                # Trigger the power automate flow and wait for the response
+                async with session.post(power_automate_url, json=payload) as power_automate_response:
+                    # Return response as an output once received
+                    return await power_automate_response.json()
+      </code></pre>
+      <h2 id="power_automate" class="text-2xl font-semibold mt-16 mb-4">Power Automate</h2>
+      <p>
+        You may have noticed that in the lookup_a_postcode function from the previous section, we've defined the power_automate_url variable as an empty string. Now we'll
+        set up a Power Automate cloud flow with a 'When a HTTP request is recieved' trigger.
+      </p>
+      <h2 id="discussion" class="text-2xl font-semibold mt-16 mb-4">Discussion</h2>
+      <p>
+        If you're familiar with Power Automate Cloud, you'll know that there is a 'HTTP' action that allows you to do what I described above without leaving the Microsoft ecosystem.
+        You may also know that the 'HTTP' action is a premium feature in Power Automate Cloud. There are however some drawbacks to using Power Automate Cloud for this, such as
+        slower processing and limited data manipulation. You could also have Power Automate Cloud pass the request and data manipulation task to Power Automate Desktop (another premium feature),
+        and you could even have that desktop flow run a script to do the request and data manipulation but there is one big drawback to this - although Power Automate Cloud can run
+        multiple instances of a flow concurrently (at the same time), Power Automate Desktop doesn't. So if a Power Automate Desktop flow is running, any other cloud flows have to
+        wait for it to finish before running it again.
+      </p>
     </div>
   </main>
 
