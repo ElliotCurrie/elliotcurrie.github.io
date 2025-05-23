@@ -250,6 +250,14 @@
         beginning of the function definition. This allows us to execute this function in the background without blocking the 'main' function of the script (explained in Part 2).
         As we can run functions in the background, it allows multiple separate instances of this function to be running at the same time.
       </p>
+      <br>
+      <p>
+        The API we're going to be calling in the first request is the Postcodes.io API, which is used for searching, validating, and geolocating UK postcodes. In particular,
+        we'll be calling the Lookup Postcode endpoint which requires you to make a GET request to 'https://api.postcodes.io/postcodes/', followed by a postcode. In return,
+        the API will respond with a JSON object containing two keys: 'status', and 'result'. The value of 'status' will be a three-digit status code integer, which indicates 
+        what happened when the server processed the request. The value of 'result' will be a JSON object containing location data associated with the postcode we inserted into
+        the endpoint url. The 'result' object is what we'll be sending to Power Automate in our second request.
+      </p>
       <pre><code>
         async def postcode_lookup(sharepoint_item_id, recipient_email, postcode):
             # Define the endpoint url for the api we're going to get data from
@@ -284,8 +292,10 @@
       <h3 id="power_automate" class="text-xl font-semibold mt-16 mb-4">Power Automate</h3>
       <p>
         You may have noticed that in the lookup_a_postcode function from the previous section, we've defined the power_automate_url variable as an empty string. Now we'll
-        set up a Power Automate cloud flow with a 'When a HTTP request is recieved' trigger.
+        set up a Power Automate cloud flow with a 'When a HTTP request is recieved' trigger. This will give us the url to use as the endpoint for our second request.
       </p>
+      <br>
+      <img src="power_automate_trigger.png" class="w-full">
       <h2 id="discussion" class="text-xl font-semibold mt-16 mb-4">Discussion</h2>
       <p>
         If you're familiar with Power Automate Cloud, you'll know that there is a 'HTTP' action that allows you to do what I described above without leaving the Microsoft ecosystem.
