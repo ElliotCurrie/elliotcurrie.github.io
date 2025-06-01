@@ -73,10 +73,9 @@
     <div class="prose max-w-none">
       <h2 id="disclaimer" class="text-2xl font-semibold mb-4">Disclaimer</h2>
       <p>
-        This project was developed for the contact centre I work at, in my role as a data engineer, within a
-        <strong>constrained corporate IT environment</strong>, where access to Microsoft APIs is heavily restricted
-        and Power Platform licensing is basic. After some tinkering, this seems to be the most reliable/seamless
-        method I've found given the constraints.
+        This was an idea thought up for the contact centre I work at, in my role as a data engineer, within a
+        <strong>constrained corporate IT environment</strong>. After some tinkering, this seems to be the most reliable/seamless
+        method I've found given the constraints, the constraints are explored in the discussion section of this project.
       </p>
 
       <h2 id="overview" class="text-2xl font-semibold mt-16 mb-4">Overview</h2>
@@ -289,13 +288,48 @@
                     # Return response as an output once received
                     return await power_automate_response.json()
       </code></pre>
+      <h3 id="sharepoint" class="text-xl font-semibold mt-16 mb-4">SharePoint</h3>
+      <p>
+        Next, we'll to create a SharePoint list which is going to operate as a log of requests that sits within the Microsoft ecosystem. We'll call this list 'Requests', and
+        create four columns: Function, Parameters, Completed, and Response. These columns are boxed in red, in the screenshot below. The other columns in the screenshot are
+        default metadata columns created by SharePoint.
+      </p>
+      <img src="sharepoint_list.png" class="w-full">
+      <p>
+        The Function column is going to contain the name of the function we've called, Parameters will contain the parameters for the function we're calling, Completed will
+        contain a timestamp which will be updated on completion of the request, and Response will contain the response from the Python script.
+      </p>
+      <h3 id="power_apps" class="text-xl font-semibold mt-16 mb-4">Power Apps</h3>
+      <p>
+        Now we'll create our interface that the users will interact with to send requests, and in this example, view the response.
+      </p>
+      <img src="power_app.png" class="w-full">
+      <p>
+        I've created a basic, clean layout with the header and main content separated into different containers. Within the main content container,
+        i've added a tab list which will allow users to switch between requests. I've also added a request container for that particular request, which contains a submit button,
+        a text input for users to submit a postcode, and a response text input (in view mode, to allow copy/paste functionality for users).
+      </p>
+      <br>
+      <p>
+        This Power App has two data sources - the 'request_log' table from the OneDrive spreadsheet we created in the Excel Workbook section, and the Requests SharePoint list
+        we created in the previous section.
+      </p>
       <h3 id="power_automate" class="text-xl font-semibold mt-16 mb-4">Power Automate</h3>
+      <h4 id="power_automate_trigger" class="text-lg font-semibold mb-4">Trigger</h4>
       <p>
         You may have noticed that in the lookup_a_postcode function from the previous section, we've defined the power_automate_url variable as an empty string. Now we'll
         set up a Power Automate cloud flow with a 'When a HTTP request is recieved' trigger. This will give us the url to use as the endpoint for our second request.
       </p>
-      <br>
       <img src="power_automate_trigger.png" class="w-full">
+      <h4 id="power_automate_flow_actions" class="text-lg font-semibold mt-8 mb-4">Flow Actions</h4>
+      <p>
+        The only real action we're going to use in this example is SharePoint's Update Item. We'll use this action to update the SharePoint item in our list we created
+        when we sent the request from Power Apps.
+      </p>
+      <img src="update_sharepoint_item.png" class="w-full">
+      <p>
+        We'll update 
+      </p>
       <h2 id="discussion" class="text-xl font-semibold mt-16 mb-4">Discussion</h2>
       <p>
         If you're familiar with Power Automate Cloud, you'll know that there is a 'HTTP' action that allows you to do what I described above without leaving the Microsoft ecosystem.
