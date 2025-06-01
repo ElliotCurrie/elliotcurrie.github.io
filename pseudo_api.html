@@ -301,19 +301,90 @@
       </p>
       <h3 id="power_apps" class="text-xl font-semibold mt-16 mb-4">Power Apps</h3>
       <p>
-        Now we'll create our interface that the users will interact with to send requests, and in this example, view the response.
-      </p>
-      <img src="power_app.png" class="w-full">
-      <p>
-        I've created a basic, clean layout with the header and main content separated into different containers. Within the main content container,
-        i've added a tab list which will allow users to switch between requests. I've also added a request container for that particular request, which contains a submit button,
-        a text input for users to submit a postcode, and a response text input (in view mode, to allow copy/paste functionality for users).
+        Now we'll create our Power App that the users will interact with to send requests, and in this example, view the response. I won't be going through the whole process
+        of creating the Power App but i'll just lay out the 'important' bits.
       </p>
       <br>
       <p>
-        This Power App has two data sources - the 'request_log' table from the OneDrive spreadsheet we created in the Excel Workbook section, and the Requests SharePoint list
+        This Power App has been given two data sources (screenshot below): the 'request_log' table from the OneDrive spreadsheet we created in the Excel Workbook section, and the Requests SharePoint list
         we created in the previous section.
       </p>
+      <img src="power_app_data_sources.png" class="w-full">
+      <p>
+        I've created a basic, clean layout with the header and main content separated into different containers (screenshot below). Within the main content container,
+        i've added a tab list which will allow users to switch between requests. I've also added a request container for that particular request, which contains a submit button,
+        a text input for users to submit a postcode, and a response text label. There is also a new form control within the request container that uses the Requests SharePoint
+        list as a data source which has been made invisible, which we're going to use in the submit button's OnSelect property.
+      </p>
+      <br>
+      <p>
+        Now we'll set the submit button's OnSelect property to the below, to pass the data for the request to both of the apps data sources.
+      </p>
+      <pre><code>
+        // Set the submit button's display mode to disabled
+        Set(var_submit_btn_dm, DisplayMode.Disabled);
+        
+        // Submit a blank form to the Requests sharepoint list
+        SubmitForm(sharepoint_form);
+        
+        // Set a variable to the form's last submission record
+        Set(var_last_submit, sharepoint_form.LastSubmit);
+        
+        // Set a variable to the function name we're calling as a string 
+        Set(var_function_called, "postcode_lookup");
+        
+        // Set a variable to the function's parameters as a concatenated string
+        Set(var_parameter_input, User().Email & ", " & postcode_input.Value);
+        
+        // Update the sharepoint item we created with the blank form, with the function name and it's parameters
+        Patch(
+            Requests,
+            var_last_submit,
+            {
+                Function: var_function_called,
+                Parameters: var_parameter_input
+            }
+        );
+        
+        // Write a row to the request_log table in the OneDrive spreadsheet with the form's last submitted sharepoint item id, the function name, and it's parameters
+        Patch(
+            request_log,
+            Defaults(request_log),
+            {
+                sharepoint_item_id: var_last_submit.ID,
+                function: var_function_called,
+                parameters: var_parameter_input
+            }
+        );
+        
+        // Clear the postcode text input
+        Reset(postcode_input);
+        
+        // Set the submit button's display mode to edit
+        Set(var_submit_btn_dm, DisplayMode.Edit);
+      </code></pre>
+      <p>
+        In the above, there's a few things to clear up that we've not yet explained:
+      </p>
+      <ul class="list-disc list-inside space-y-2 mt-4">
+        <li>
+          var_submit_btn_dm is a variable that we've used as the value for the submit button's DisplayMode property. We're disabling the button when it's clicked to avoid
+          duplication of requests. The classic button control has a property for this functionality but because we can't not touch shiny new things, we've opted to use the newer
+          button control despite it not having this property...
+        </li>
+        <li>
+          We needed the form as a non-interactable control simply to obtain a SharePoint Item ID from the blank form submission, to pass to Python through the OneDrive spreadsheet. 
+          This will allow us to pass the correct data to the correct log in the SharePoint list when we get a response from Python.
+        </li>
+        <li>
+          The response text control's text property has been set to a lookup function to lookup the value of the Response column for the new item we created in the SharePoint list. 
+        </li>
+        <li>
+          There's a timer control on the page that is set to auto-start, to repeat, has it's OnTimerEnd property set to Refresh(Requests) to refresh our SharePoint list automatically,
+          and with a duration of 1 second because we need our request responses yesterday.
+        </li>
+      </ul>
+      <img src="power_app.png" class="w-full">
       <h3 id="power_automate" class="text-xl font-semibold mt-16 mb-4">Power Automate</h3>
       <h4 id="power_automate_trigger" class="text-lg font-semibold mb-4">Trigger</h4>
       <p>
