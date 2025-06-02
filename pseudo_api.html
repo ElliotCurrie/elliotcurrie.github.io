@@ -428,7 +428,7 @@
       </p>
       <img src="update_sharepoint_item.png" class="w-full">
       <p>
-        We'll select the correct site address and list name using the dropdowns in the action. Then we'll use the sharepoint_item_id from the data passed sent to the trigger to
+        We'll select the site address where we created the list and the list itself using the dropdowns in the action. Then we'll use the sharepoint_item_id from the data passed sent to the trigger to
         tell the action which item we're updating and the only other two columns we want to update here are Completed, and Response. We'll generate a timestamp using Power Automate's
         expression functionality with 'convertTimeZone(utcNow(), 'UTC', 'GMT Standard Time')'. In an ideal world, utcNow() would be enough for a timestamp in the UK but because
         daylight saving time exists, we have to wrap that up snuggly in the convertTimeZone function, specifying the conversion from UTC to GMT. And we'll use the repsonse
@@ -439,7 +439,52 @@
         Our final action in this flow is the response payload, containing a log of the request (screenshot below), which will be sent back to the Python script to process.
       </p>
       <img src="response.png" class="w-full">
-      <h2 id="discussion" class="text-xl font-semibold mt-16 mb-4">Discussion</h2>
+      <h3 id="python_p2" class="text-xl font-semibold mt-16 mb-4">Python Script (Part 2)</h3>
+      <p>
+        For the final piece to the puzzle, we're now going to create the 'main' function in the Python script. This will be where our core logic will be ran from, tieing
+        everything together.
+      </p>
+      <br>
+      <p>
+        We'll start by defining a few variables that we'll pass into the functions we created in Part 1: xl_path, csv_path, sheet_name, and table_name.
+      </p>
+      <pre><code>
+        async def main():
+            # Path to 'requests.xlsx'
+            xl_path = r"C:\Users\Elliot\OneDrive - EC\requests.xlsx"
+        
+            # Path to 'requests_actioned.csv'
+            csv_path = r"C:\Users\Elliot\OneDrive - EC\requests_actioned.csv"
+        
+            # Name of the sheet with the target table
+            sheet_name = "requests"
+        
+            # Name of the table
+            table_name = "request_log"
+        
+            # Execution delay in seconds
+            poll_interval = 1
+        
+            # Map of function strings to functions
+            function_map = {
+                "postcode_lookup": postcode_lookup
+            }
+      </code></pre>
+      <p>
+        We also have a couple of other variables here, poll_interval and function_map. We're going to be using an infinite loop in this script so that the script
+        can constantly monitor the 'requests' spreadsheet for new entries. But we need to add a delay to the loop to control the execution speed as if we had no delay,
+        the CPU would execute the loops as fast as it can. This would lead to a large amount of CPU usage and would not allow our background tasks enough time to execute so
+        we've set the poll_interval to 1 second. But realistically, it could be longer than that, because this isn't an application where impact is measured by raw speed.
+        As we're executing these tasks via a kind of message queue in the form of excel, we need to map the function name string we're going to recieve from excel, to
+        the actual function, which is what function_map is used for.
+      </p>
+      <br>
+      <p>
+        Now we'll create the core logic of the script, code below. The first thing we need to explain here is the nested infinite loop. The inner loop is where the actual work
+        is done but we need to open excel outside of this loop, otherwise every loop iteration would try to open a new instance of excel and our 'requests' spreadsheet. 
+        Along with opening excel, we're going to also read the 'requests_actioned' csv and put the sharepoint_id column values into a list.
+      </p>
+      <h2 id="discussion" class="text-2xl font-semibold mt-16 mb-4">Discussion</h2>
       <p>
         If you're familiar with Power Automate Cloud, you'll know that there is a 'HTTP' action that allows you to do what I described above without leaving the Microsoft ecosystem.
         You may also know that the 'HTTP' action is a premium feature in Power Automate Cloud. There are however some drawbacks to using Power Automate Cloud for this, such as
