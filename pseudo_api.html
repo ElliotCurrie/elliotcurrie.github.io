@@ -380,17 +380,47 @@
           The response text control's text property has been set to a lookup function to lookup the value of the Response column for the new item we created in the SharePoint list. 
         </li>
         <li>
-          There's a timer control on the page that is set to auto-start, to repeat, has it's OnTimerEnd property set to Refresh(Requests) to refresh our SharePoint list automatically,
+          There's a timer control on the page that is set to auto-start, to repeat, has it's OnTimerEnd property set to 'Refresh(Requests)' to refresh our SharePoint list automatically,
           and with a duration of 1 second because we need our request responses yesterday.
         </li>
       </ul>
       <h3 id="power_automate" class="text-xl font-semibold mt-16 mb-4">Power Automate</h3>
       <h4 id="power_automate_trigger" class="text-lg font-semibold mb-4">Trigger</h4>
       <p>
-        You may have noticed that in the lookup_a_postcode function from the previous section, we've defined the power_automate_url variable as an empty string. Now we'll
-        set up a Power Automate cloud flow with a 'When a HTTP request is recieved' trigger. This will give us the url to use as the endpoint for our second request.
+        You may have noticed that in the lookup_a_postcode function from the Python Script (Part 1) section, we've defined the power_automate_url variable as an empty string. Now we'll
+        set up a Power Automate cloud flow with a 'When a HTTP request is recieved' trigger. This will give us the url to use as the endpoint for our second request. The URL will
+        be generated when the flow is saved.
       </p>
       <img src="power_automate_trigger.png" class="w-full">
+      <p>
+        There's one very crucial property within the trigger that needs to be changed. By default, the 'Who can trigger the flow?' property is set to 'Any user in my tenant'. With this
+        default setting, for our local Python script to be able to trigger this flow, we'd have to register an app on Azure Active Directory and use MSAL
+        (Microsoft Authentication Library) in the script. As I don't have access to this at my company and don't have the patience for a 6 month back and forth with the IT department, 
+        i've set this property to 'Anyone'.
+      </p>
+      <br>
+      <p>
+        Another property worth setting is the Request Body JSON Schema but it's more of an optional thing. This will give the trigger strict guidelines on what data/data types to expect, but will
+        also give us easier access to JSON properties when we're selecting dynamic content to use in the rest of our flow. Because it knows what to expect, it can give us those options
+        for easy selection. If the data you're sending is short and sweet, it's pretty simple to write this manually but there's also an option to 'Use sample payload to
+        generate schema'. So if the payload is of ample size (like in this case), or if you simply can't be bothered writing out the schema manually, you can just paste a sample
+        payload into the input that this option presents. We can just take the structure of the payload from the Python Script (Part 1) section (below) and replace the variables
+        with the data types we know they'll be replaced with at runtime.
+      </p>
+      <pre><code>
+        {
+            "sharepoint_item_id": sharepoint_item_id,
+            "recipient_email": recipient_email,
+            "response": postcode_lookup_data,
+            "status": "completed"
+        }
+      </code></pre>
+      <p>
+        We know that sharepoint_item_id is going to be an integer so we'll replace that with a random integer, recipient email is going to be a string so we'll replace that with
+        an empty string, we can grab the response from the api documentation to use as the response value, and we can just leave the status value as is because it's pre-set. Once
+        that's done, we can just slap that sample payload into the schema generator within the trigger and boom, we've got a JSON schema! Be warned though, the request will be
+        rejected if the data you send to the trigger doesn't match that schema but power automate will tell you that in the response of the failed request.
+      </p>
       <h4 id="power_automate_flow_actions" class="text-lg font-semibold mt-8 mb-4">Flow Actions</h4>
       <p>
         The only real action we're going to use in this example is SharePoint's Update Item. We'll use this action to update the SharePoint item in our list we created
@@ -398,8 +428,17 @@
       </p>
       <img src="update_sharepoint_item.png" class="w-full">
       <p>
-        We'll update 
+        We'll select the correct site address and list name using the dropdowns in the action. Then we'll use the sharepoint_item_id from the data passed sent to the trigger to
+        tell the action which item we're updating and the only other two columns we want to update here are Completed, and Response. We'll generate a timestamp using Power Automate's
+        expression functionality with 'convertTimeZone(utcNow(), 'UTC', 'GMT Standard Time')'. In an ideal world, utcNow() would be enough for a timestamp in the UK but because
+        daylight saving time exists, we have to wrap that up snuggly in the convertTimeZone function, specifying the conversion from UTC to GMT. And we'll use the repsonse
+        from the trigger payload to update the response column.
       </p>
+      <br>
+      <p>
+        Our final action in this flow is the response payload, containing a log of the request (screenshot below), which will be sent back to the Python script to process.
+      </p>
+      <img src="response.png" class="w-full">
       <h2 id="discussion" class="text-xl font-semibold mt-16 mb-4">Discussion</h2>
       <p>
         If you're familiar with Power Automate Cloud, you'll know that there is a 'HTTP' action that allows you to do what I described above without leaving the Microsoft ecosystem.
