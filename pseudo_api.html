@@ -482,7 +482,93 @@
       <p>
         Now we'll create the core logic of the script, code below. The first thing we need to explain here is the nested infinite loop. The inner loop is where the actual work
         is done but we need to open excel outside of this loop, otherwise every loop iteration would try to open a new instance of excel and our 'requests' spreadsheet. 
-        Along with opening excel, we're going to also read the 'requests_actioned' csv and put the sharepoint_id column values into a list.
+        Along with opening excel, we're going to read the 'requests_actioned' csv and put the sharepoint_id column values into a list. We're also going to define an empty list
+        which will hold the tasks that we're going to run on request by users. These lines, and the inner loop are wrapped in try/except blocks, which is wrapped in a while true
+        loop. The try/except block is used to catch errors and allow the code to keep executing despite them. 'except Exception' will catch non-specific errors. I've put this in here
+        because with absolute consistency, when the first row is added to the spreadsheet's table, reading the table's range raises an exception, which brings this whole house
+        of cards tumbling down. Within the except block, we're printing the error to the terminal which will help us identify any other errors while testing. Although it's
+        probably wise to write these errors to our 'failure_reason' column (which we haven't done in this example) because monitoring the terminal constantly kind of defeats 
+        the purpose of automating stuff. We've also got app.quit() in this block which closes the excel instance and a delay that allows the instance to fully close. We've wrapped
+        all of this in a while true loop so that when the excel instance closes after an error, it'll just re-open again and be on it's merry way.
+      </p>
+      <br>
+      <p>
+        But fear not reader, this error only gets thrown when the first row is written. After that, it's plain sailing, any other errors are on you.
+      </p>
+      <pre><code>
+        while True:
+            try:
+                # Define the open_excel function output as 'ws'
+                app, ws = open_excel(xl_path, sheet_name)
+    
+                # Define the requests_actioned sharepoint_item_id column as a set 
+                processed_ids = list(row[0] for row in read_csv(csv_path))
+    
+                # Define list for async tasks
+                tasks = []
+                
+                # Start infinite loop to continiously check for new requests
+                while True:
+                    # Define the read_table function output as 'requests'
+                    requests = read_table(ws, table_name)
+                    
+                    if isinstance(requests[0], list):
+                        # Calculate the difference between the length of the 'requests' and 'requests_actioned' lists
+                        row_delta = len(requests) - len(processed_ids)
+    
+                        print(row_delta, 'new requests detected.')
+    
+                        # If there's more items in the 'requests' list...
+                        if row_delta > 0:
+                            # Define new requests as the last 'row_delta' items in the 'requests' list
+                            new_requests = requests[-row_delta:]
+    
+                            # Iterate over items in the 'new_requests' list
+                            for request in new_requests:
+                                # Unpack the row list into separate variables
+                                sharepoint_item_id, function, parameters = request
+    
+                                # Add the new sharepoint_item_id to the set
+                                processed_ids.append(sharepoint_item_id)
+    
+                                # Append the function and parameters requested to the 'tasks' list as an asyncio task
+                                tasks.append(asyncio.create_task(function_map.get(function)(sharepoint_item_id, *parameters.split(", "))))
+    
+                        # Define a list of completed tasks
+                        completed_tasks = [task for task in tasks if task.done()]
+                        
+                        # Iterate over the list completed tasks
+                        for task in completed_tasks:
+                            # Retrieve the response from the power automate flow
+                            result = task.result()
+    
+                            # Append the request log to 'actioned_requests.csv'
+                            append_csv(csv_path, [result["sharepoint_item_id"], result["function"], result["parameters"], result["created"], result["completed"], result['status'], result["failure_reason"]])
+                        
+                        # Define a list of active tasks to give visibility on processing
+                        tasks = [task for task in tasks if not task.done()]
+                    else:
+                        print("Waiting for first request...")
+    
+                    # Wait before checking 'requests.xlsx' again, to avoid unnecessary CPU usage
+                    await asyncio.sleep(poll_interval)
+    
+            except Exception as e:
+                # Print the error
+                print(e)
+    
+                # Close the excel instance
+                app.quit()
+    
+                # Wait before opening excel again
+                await asyncio.sleep(5)
+      </code></pre>
+      <p>
+        Now that's out the way, let's move on to the inner while true loop. First we're going to run the read_table function and store the output in the requests variable.
+        The condition that we're using after that, 'if isinstance(requests[0], list):' will only run the code indented under it if the first item in the requests list (because
+        the read_table function outputs a list), is a list. We're doing this because if the table we're reading is empty excluding the headers, the read_table function will output
+        a list of the header strings e.g. ["header1", "header2", "header3"]. When other rows are added, the output becomes a list of lists, with each row in the table range being
+        a list.
       </p>
       <h2 id="discussion" class="text-2xl font-semibold mt-16 mb-4">Discussion</h2>
       <p>
