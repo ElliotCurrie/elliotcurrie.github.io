@@ -169,21 +169,23 @@
       <p>
         In this example, 'xl_path' is the local path to 'request.xlsx', and 'sheet_name' is the name of the worksheet that contains the table we created.
       </p>
-      <pre><code>
-        def open_excel(xl_path, sheet_name):
-            # Start a visible Excel instance
-            app = xw.App(visible=True)
-        
-            # Open the predefined path in Excel instance
-            wb = app.books.open(xl_path)
-        
-            # Close new workbook that opens by default from running xw.App()
-            if any(book.name == "Book1" for book in app.books):
-                app.books["Book1"].close()
-        
-            # Return the worksheet as an output using the prefined sheet name
-            return wb.sheets[sheet_name]
-      </code></pre>
+      <pre class="w-full whitespace-pre-wrap break-words overflow-x-auto p-4 bg-gray-100 rounded">
+        <code class="block">
+def open_excel(xl_path, sheet_name):
+    # Start a visible Excel instance
+    app = xw.App(visible=True)
+
+    # Open the predefined path in Excel instance
+    wb = app.books.open(xl_path)
+
+    # Close new workbook that opens by default from running xw.App()
+    if any(book.name == "Book1" for book in app.books):
+        app.books["Book1"].close()
+
+    # Return the worksheet as an output using the prefined sheet name
+    return wb.sheets[sheet_name]
+        </code>
+      </pre>
       <h3 id="read_table_function" class="text-lg font-semibold mt-8 mb-4">read_table</h3>
       <p>
         This function gets a table object from within a worksheet using the table's name, gets the cell range that the table exists in, and outputs the cell values in that
@@ -193,17 +195,19 @@
       <p>
         In this example, 'ws' is the worksheet object that we get from the 'open_excel' function, and 'table_name' is the name of the table in 'requests.xlsx'.
       </p>
-      <pre><code>
-        def read_table(ws, table_name):
-            # Get the table object using the predefined table name
-            table = ws.api.ListObjects(table_name)
-        
-            # Get the cell range of the table
-            data_range = table.Range
-        
-            # Return the data within the table cell range as a list of lists
-            return ws.range((data_range.Row, data_range.Column)).expand().value
-      </code></pre>
+      <pre class="w-full whitespace-pre-wrap break-words overflow-x-auto p-4 bg-gray-100 rounded">
+        <code class="block">
+def read_table(ws, table_name):
+    # Get the table object using the predefined table name
+    table = ws.api.ListObjects(table_name)
+
+    # Get the cell range of the table
+    data_range = table.Range
+
+    # Return the data within the table cell range as a list of lists
+    return ws.range((data_range.Row, data_range.Column)).expand().value
+        </code>
+      </pre>
       <h3 id="read_csv_function" class="text-lg font-semibold mt-8 mb-4">read_csv</h3>
       <p>
         This function reads a csv and outputs the data within as a list of lists, just like our 'read_table' function. It takes one input argument, 'csv_path'. By default,
@@ -220,13 +224,15 @@
       <p>
         In this example, 'csv_path' is the local path to 'requests_actioned.csv'.
       </p>
-      <pre><code>
-        def read_csv(csv_path):
-            # Open csv at the predefined path
-            with open(csv_path, mode='r', newline='') as f:
-                # Read csv and return data as a list of lists
-                return list(csv.reader(f))
-      </code></pre>
+      <pre class="w-full whitespace-pre-wrap break-words overflow-x-auto p-4 bg-gray-100 rounded">
+        <code class="block">
+def read_csv(csv_path):
+    # Open csv at the predefined path
+    with open(csv_path, mode='r', newline='') as f:
+        # Read csv and return data as a list of lists
+        return list(csv.reader(f))
+        </code>
+      </pre>
       <h3 id="append_csv_function" class="text-lg font-semibold mt-8 mb-4">append_csv</h3>
       <p>
         This function appends a row of data to a csv and outputs the data within as a list of lists, just like our 'read_table' function. It takes one input argument, 'csv_path'.
@@ -235,13 +241,15 @@
       <p>
         In this example, 'csv_path' is the local path to 'requests_actioned.csv'.
       </p>
-      <pre><code>
-        def append_csv(csv_path, data):
-            # Open csv at the predefined path in append mode
-            with open(csv_path, mode='a', newline='') as f:
-                # Write input data as rows to csv
-                csv.writer(f).writerow(data)
-      </code></pre>
+      <pre class="w-full whitespace-pre-wrap break-words overflow-x-auto p-4 bg-gray-100 rounded">
+        <code class="block">
+def append_csv(csv_path, data):
+    # Open csv at the predefined path in append mode
+    with open(csv_path, mode='a', newline='') as f:
+        # Write input data as rows to csv
+        csv.writer(f).writerow(data)
+        </code>
+      </pre>
       <h3 id="lookup_a_postcode_function" class="text-lg font-semibold mt-8 mb-4">lookup_a_postcode</h3>
       <p>
         This function makes a HTTP GET request to get data from an API, waits for the response, constructs a payload, then sends the payload in a HTTP POST request to
@@ -257,37 +265,39 @@
         what happened when the server processed the request. The value of 'result' will be a JSON object containing location data associated with the postcode we inserted into
         the endpoint url. The 'result' object is what we'll be sending to Power Automate in our second request.
       </p>
-      <pre><code>
-        async def postcode_lookup(sharepoint_item_id, recipient_email, postcode):
-            # Define the endpoint url for the api we're going to get data from
-            postcode_lookup_url = f"https://api.postcodes.io/postcodes/{postcode}"
+      <pre class="w-full whitespace-pre-wrap break-words overflow-x-auto p-4 bg-gray-100 rounded">
+        <code class="block">
+async def postcode_lookup(sharepoint_item_id, recipient_email, postcode):
+    # Define the endpoint url for the api we're going to get data from
+    postcode_lookup_url = f"https://api.postcodes.io/postcodes/{postcode}"
 
-            # Start an asynchronous HTTP session
-            async with aiohttp.ClientSession() as session:
-                # Make the GET request and wait for the response
-                async with session.get(postcode_lookup_url) as postcode_lookup_response:
-                    # Store the response in a variable
-                    postcode_lookup_data = await postcode_lookup_response.json()
-                
-                # Extract the value of the 'result' key
-                postcode_data = postcode_lookup_data["result"]
+    # Start an asynchronous HTTP session
+    async with aiohttp.ClientSession() as session:
+        # Make the GET request and wait for the response
+        async with session.get(postcode_lookup_url) as postcode_lookup_response:
+            # Store the response in a variable
+            postcode_lookup_data = await postcode_lookup_response.json()
         
-                # Construct the data payload to send to power automate, as json
-                payload = {
-                    "sharepoint_item_id": sharepoint_item_id,
-                    "recipient_email": recipient_email,
-                    "postcode_data": postcode_data,
-                    "status": "completed"
-                }
-        
-                # Define the endpoint url generated by the power automate HTTP trigger
-                power_automate_url = ''
-        
-                # Trigger the power automate flow and wait for the response
-                async with session.post(power_automate_url, json=payload) as power_automate_response:
-                    # Return response as an output once received
-                    return await power_automate_response.json()
-      </code></pre>
+        # Extract the value of the 'result' key
+        postcode_data = postcode_lookup_data["result"]
+
+        # Construct the data payload to send to power automate, as json
+        payload = {
+            "sharepoint_item_id": sharepoint_item_id,
+            "recipient_email": recipient_email,
+            "postcode_data": postcode_data,
+            "status": "completed"
+        }
+
+        # Define the endpoint url generated by the power automate HTTP trigger
+        power_automate_url = ''
+
+        # Trigger the power automate flow and wait for the response
+        async with session.post(power_automate_url, json=payload) as power_automate_response:
+            # Return response as an output once received
+            return await power_automate_response.json()
+        </code>
+      </pre>
       <h3 id="sharepoint" class="text-xl font-semibold mt-16 mb-4">SharePoint</h3>
       <p>
         Next, we'll to create a SharePoint list which is going to operate as a log of requests that sits within the Microsoft ecosystem. We'll call this list 'Requests', and
@@ -320,49 +330,51 @@
       <p>
         Now we'll set the submit button's OnSelect property to the below, to pass the data for the request to both of the apps data sources.
       </p>
-      <pre><code>
-        // Set the submit button's display mode to disabled
-        Set(var_submit_btn_dm, DisplayMode.Disabled);
-        
-        // Submit a blank form to the Requests sharepoint list
-        SubmitForm(sharepoint_form);
-        
-        // Set a variable to the form's last submission record
-        Set(var_last_submit, sharepoint_form.LastSubmit);
-        
-        // Set a variable to the function name we're calling as a string 
-        Set(var_function_called, "postcode_lookup");
-        
-        // Set a variable to the function's parameters as a concatenated string
-        Set(var_parameter_input, User().Email & ", " & postcode_input.Value);
-        
-        // Update the sharepoint item we created with the blank form, with the function name and it's parameters
-        Patch(
-            Requests,
-            var_last_submit,
-            {
-                Function: var_function_called,
-                Parameters: var_parameter_input
-            }
-        );
-        
-        // Write a row to the request_log table in the OneDrive spreadsheet with the form's last submitted sharepoint item id, the function name, and it's parameters
-        Patch(
-            request_log,
-            Defaults(request_log),
-            {
-                sharepoint_item_id: var_last_submit.ID,
-                function: var_function_called,
-                parameters: var_parameter_input
-            }
-        );
-        
-        // Clear the postcode text input
-        Reset(postcode_input);
-        
-        // Set the submit button's display mode to edit
-        Set(var_submit_btn_dm, DisplayMode.Edit);
-      </code></pre>
+      <pre class="w-full whitespace-pre-wrap break-words overflow-x-auto p-4 bg-gray-100 rounded">
+        <code class="block">
+// Set the submit button's display mode to disabled
+Set(var_submit_btn_dm, DisplayMode.Disabled);
+
+// Submit a blank form to the Requests sharepoint list
+SubmitForm(sharepoint_form);
+
+// Set a variable to the form's last submission record
+Set(var_last_submit, sharepoint_form.LastSubmit);
+
+// Set a variable to the function name we're calling as a string 
+Set(var_function_called, "postcode_lookup");
+
+// Set a variable to the function's parameters as a concatenated string
+Set(var_parameter_input, User().Email & ", " & postcode_input.Value);
+
+// Update the sharepoint item we created with the blank form, with the function name and it's parameters
+Patch(
+    Requests,
+    var_last_submit,
+    {
+        Function: var_function_called,
+        Parameters: var_parameter_input
+    }
+);
+
+// Write a row to the request_log table in the OneDrive spreadsheet with the form's last submitted sharepoint item id, the function name, and it's parameters
+Patch(
+    request_log,
+    Defaults(request_log),
+    {
+        sharepoint_item_id: var_last_submit.ID,
+        function: var_function_called,
+        parameters: var_parameter_input
+    }
+);
+
+// Clear the postcode text input
+Reset(postcode_input);
+
+// Set the submit button's display mode to edit
+Set(var_submit_btn_dm, DisplayMode.Edit);
+        </code>
+      </pre>
       <p>
         In the above, there's a few things to clear up that we've not yet explained:
       </p>
@@ -407,14 +419,16 @@
         payload into the input that this option presents. We can just take the structure of the payload from the Python Script (Part 1) section (below) and replace the variables
         with the data types we know they'll be replaced with at runtime.
       </p>
-      <pre><code>
-        {
-            "sharepoint_item_id": sharepoint_item_id,
-            "recipient_email": recipient_email,
-            "response": postcode_lookup_data,
-            "status": "completed"
-        }
-      </code></pre>
+      <pre class="w-full whitespace-pre-wrap break-words overflow-x-auto p-4 bg-gray-100 rounded">
+        <code class="block">
+{
+    "sharepoint_item_id": sharepoint_item_id,
+    "recipient_email": recipient_email,
+    "response": postcode_lookup_data,
+    "status": "completed"
+}
+        </code>
+      </pre>
       <p>
         We know that sharepoint_item_id is going to be an integer so we'll replace that with a random integer, recipient email is going to be a string so we'll replace that with
         an empty string, we can grab the response from the api documentation to use as the response value, and we can just leave the status value as is because it's pre-set. Once
@@ -448,28 +462,30 @@
       <p>
         We'll start by defining a few variables that we'll pass into the functions we created in Part 1: xl_path, csv_path, sheet_name, and table_name.
       </p>
-      <pre><code>
-        async def main():
-            # Path to 'requests.xlsx'
-            xl_path = r"C:\Users\Elliot\OneDrive - EC\requests.xlsx"
-        
-            # Path to 'requests_actioned.csv'
-            csv_path = r"C:\Users\Elliot\OneDrive - EC\requests_actioned.csv"
-        
-            # Name of the sheet with the target table
-            sheet_name = "requests"
-        
-            # Name of the table
-            table_name = "request_log"
-        
-            # Execution delay in seconds
-            poll_interval = 1
-        
-            # Map of function strings to functions
-            function_map = {
-                "postcode_lookup": postcode_lookup
-            }
-      </code></pre>
+      <pre class="w-full whitespace-pre-wrap break-words overflow-x-auto p-4 bg-gray-100 rounded">
+        <code class="block">
+async def main():
+    # Path to 'requests.xlsx'
+    xl_path = r"C:\Users\Elliot\OneDrive - EC\requests.xlsx"
+
+    # Path to 'requests_actioned.csv'
+    csv_path = r"C:\Users\Elliot\OneDrive - EC\requests_actioned.csv"
+
+    # Name of the sheet with the target table
+    sheet_name = "requests"
+
+    # Name of the table
+    table_name = "request_log"
+
+    # Execution delay in seconds
+    poll_interval = 1
+
+    # Map of function strings to functions
+    function_map = {
+        "postcode_lookup": postcode_lookup
+    }
+        </code>
+      </pre>
       <p>
         We also have a couple of other variables here, poll_interval and function_map. We're going to be using an infinite loop in this script so that the script
         can constantly monitor the 'requests' spreadsheet for new entries. But we need to add a delay to the loop to control the execution speed as if we had no delay,
@@ -495,74 +511,76 @@
       <p>
         But fear not reader, this error only gets thrown when the first row is written. After that, it's plain sailing, any other errors are on you.
       </p>
-      <pre><code>
+      <pre class="w-full whitespace-pre-wrap break-words overflow-x-auto p-4 bg-gray-100 rounded">
+        <code class="block">
+while True:
+    try:
+        # Define the open_excel function output as 'ws'
+        app, ws = open_excel(xl_path, sheet_name)
+
+        # Define the requests_actioned sharepoint_item_id column as a set 
+        processed_ids = list(row[0] for row in read_csv(csv_path))
+
+        # Define list for async tasks
+        tasks = []
+        
+        # Start infinite loop to continiously check for new requests
         while True:
-            try:
-                # Define the open_excel function output as 'ws'
-                app, ws = open_excel(xl_path, sheet_name)
-    
-                # Define the requests_actioned sharepoint_item_id column as a set 
-                processed_ids = list(row[0] for row in read_csv(csv_path))
-    
-                # Define list for async tasks
-                tasks = []
+            # Define the read_table function output as 'requests'
+            requests = read_table(ws, table_name)
+            
+            if isinstance(requests[0], list):
+                # Calculate the difference between the length of the 'requests' and 'requests_actioned' lists
+                row_delta = len(requests) - len(processed_ids)
+
+                print(row_delta, 'new requests detected.')
+
+                # If there's more items in the 'requests' list...
+                if row_delta > 0:
+                    # Define new requests as the last 'row_delta' items in the 'requests' list
+                    new_requests = requests[-row_delta:]
+
+                    # Iterate over items in the 'new_requests' list
+                    for request in new_requests:
+                        # Unpack the row list into separate variables
+                        sharepoint_item_id, function, parameters = request
+
+                        # Add the new sharepoint_item_id to the set
+                        processed_ids.append(sharepoint_item_id)
+
+                        # Append the function and parameters requested to the 'tasks' list as an asyncio task
+                        tasks.append(asyncio.create_task(function_map.get(function)(sharepoint_item_id, *parameters.split(", "))))
+
+                # Define a list of completed tasks
+                completed_tasks = [task for task in tasks if task.done()]
                 
-                # Start infinite loop to continiously check for new requests
-                while True:
-                    # Define the read_table function output as 'requests'
-                    requests = read_table(ws, table_name)
-                    
-                    if isinstance(requests[0], list):
-                        # Calculate the difference between the length of the 'requests' and 'requests_actioned' lists
-                        row_delta = len(requests) - len(processed_ids)
-    
-                        print(row_delta, 'new requests detected.')
-    
-                        # If there's more items in the 'requests' list...
-                        if row_delta > 0:
-                            # Define new requests as the last 'row_delta' items in the 'requests' list
-                            new_requests = requests[-row_delta:]
-    
-                            # Iterate over items in the 'new_requests' list
-                            for request in new_requests:
-                                # Unpack the row list into separate variables
-                                sharepoint_item_id, function, parameters = request
-    
-                                # Add the new sharepoint_item_id to the set
-                                processed_ids.append(sharepoint_item_id)
-    
-                                # Append the function and parameters requested to the 'tasks' list as an asyncio task
-                                tasks.append(asyncio.create_task(function_map.get(function)(sharepoint_item_id, *parameters.split(", "))))
-    
-                        # Define a list of completed tasks
-                        completed_tasks = [task for task in tasks if task.done()]
-                        
-                        # Iterate over the list completed tasks
-                        for task in completed_tasks:
-                            # Retrieve the response from the power automate flow
-                            result = task.result()
-    
-                            # Append the request log to 'actioned_requests.csv'
-                            append_csv(csv_path, [result["sharepoint_item_id"], result["function"], result["parameters"], result["created"], result["completed"], result['status'], result["failure_reason"]])
-                        
-                        # Define a list of active tasks to give visibility on processing
-                        tasks = [task for task in tasks if not task.done()]
-                    else:
-                        print("Waiting for first request...")
-    
-                    # Wait before checking 'requests.xlsx' again, to avoid unnecessary CPU usage
-                    await asyncio.sleep(poll_interval)
-    
-            except Exception as e:
-                # Print the error
-                print(e)
-    
-                # Close the excel instance
-                app.quit()
-    
-                # Wait before opening excel again
-                await asyncio.sleep(5)
-      </code></pre>
+                # Iterate over the list completed tasks
+                for task in completed_tasks:
+                    # Retrieve the response from the power automate flow
+                    result = task.result()
+
+                    # Append the request log to 'actioned_requests.csv'
+                    append_csv(csv_path, [result["sharepoint_item_id"], result["function"], result["parameters"], result["created"], result["completed"], result['status'], result["failure_reason"]])
+                
+                # Define a list of active tasks to avoid duplicate processing
+                tasks = [task for task in tasks if not task.done()]
+            else:
+                print("Waiting for first request...")
+
+            # Wait before checking 'requests.xlsx' again, to avoid unnecessary CPU usage
+            await asyncio.sleep(poll_interval)
+
+    except Exception as e:
+        # Print the error
+        print(e)
+
+        # Close the excel instance
+        app.quit()
+
+        # Wait before opening excel again
+        await asyncio.sleep(5)
+        </code>
+      </pre>
       <p>
         Now that's out the way, let's move on to the inner while true loop. First we're going to run the read_table function and store the output in the requests variable.
         The condition that we're using after that, 'if isinstance(requests[0], list):' will only run the rest of our code if the first item in the requests list (because
@@ -582,7 +600,17 @@
         function_map.get(function) to get the value of the key in the function map that is equal to our function string, which will return the actual function name in the script.
         Our function has sharepoint_item_id, recipient_email, and postcode as parameters. We can pass the sharepoint_item_id in with no issue, but with our concatenated arguments, we'll
         have to split that string by it's delimiter which in this instance is a comma followed by a space, which splits the string into a list. We'll then prefix that with an asterisk
-        to unpack that list into positional arguments e.g. "example@example.com, WD18 6PD" --> ["example@example.com", "WD18 6PD"] --> "example@example.com", "WD18 6PD".
+        to unpack that list into positional arguments e.g. "example@example.com, WD18 6PD" --> ["example@example.com", "WD18 6PD"] --> "example@example.com", "WD18 6PD". Asyncio allows
+        us to run these tasks concurrently (at the same time), efficiently. After we've created the task, we'll then append the sharepoint_item_id of the request to the processed_ids
+        list. Doing this avoids duplication of tasks because once we've created all the tasks for the new requests, our 'if row_delta>0' conditional will no longer be satisfied and will
+        not create any more new tasks until we receive new requests again.
+      </p>
+      <br>
+      <p>
+        Then we'll filter the tasks list to just keep the tasks that have completed, and define that as completed tasks. For each task that is completed, we'll retrieve the output and
+        use the append_csv function to (you guessed it) append a log to the requests_actioned csv. Finally, we'll filter the tasks list to just keep the tasks that aren't completed and
+        use that to redefine the tasks list. So we've processed the completed tasks and removed them from the tasks list so we don't process them again. Then we'll add a delay 
+        at the end of the loop using the poll_interval to give the CPU some wiggle room to process the tasks.
       </p>
       <h2 id="discussion" class="text-2xl font-semibold mt-16 mb-4">Discussion</h2>
       <p>
