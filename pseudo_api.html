@@ -565,10 +565,24 @@
       </code></pre>
       <p>
         Now that's out the way, let's move on to the inner while true loop. First we're going to run the read_table function and store the output in the requests variable.
-        The condition that we're using after that, 'if isinstance(requests[0], list):' will only run the code indented under it if the first item in the requests list (because
+        The condition that we're using after that, 'if isinstance(requests[0], list):' will only run the rest of our code if the first item in the requests list (because
         the read_table function outputs a list), is a list. We're doing this because if the table we're reading is empty excluding the headers, the read_table function will output
         a list of the header strings e.g. ["header1", "header2", "header3"]. When other rows are added, the output becomes a list of lists, with each row in the table range being
-        a list.
+        a list e.g. [["header1", "header2", "header3"], ["columnValue1", "columnValue2", "columnValue3"]]. So if the first item in the list is a list, we know we have our first
+        request. But if not, we'll just print 'Waiting for first rquest...', which you can see in the 'else' block.
+      </p>
+      <br>
+      <p>
+        Once we pass that condition, we're going to calculate the difference between the length (number of items) of the requests list and the length of the processed_ids list,
+        as 'row_delta'. If there's more items in the requests list, we know we've got requests to process. We'll then filter that requests list by just keeping the last 'row_delta'
+        items in the requests list, and define it as 'new_requests'. Then for each item (list) in the new_requests list, we're gonna unpack each item within it into its own variable
+        (sharepoint_item_id, function, parameters) which we'll then use to create the task with asyncio and append that to the tasks list. Asyncio's create_task function takes
+        the function name and the functions arguments as it's only argument, just like if you were running the function normally. However, we have a bit of an issue, the function name
+        we have is a string, and some of the function arguments we have are contained in a concatenated string. This is where our function_map dictionary comes into play. We'll use
+        function_map.get(function) to get the value of the key in the function map that is equal to our function string, which will return the actual function name in the script.
+        Our function has sharepoint_item_id, recipient_email, and postcode as parameters. We can pass the sharepoint_item_id in with no issue, but with our concatenated arguments, we'll
+        have to split that string by it's delimiter which in this instance is a comma followed by a space, which splits the string into a list. We'll then prefix that with an asterisk
+        to unpack that list into positional arguments e.g. "example@example.com, WD18 6PD" --> ["example@example.com", "WD18 6PD"] --> "example@example.com", "WD18 6PD".
       </p>
       <h2 id="discussion" class="text-2xl font-semibold mt-16 mb-4">Discussion</h2>
       <p>
