@@ -614,12 +614,42 @@ while True:
       </p>
       <h2 id="discussion" class="text-2xl font-semibold mt-16 mb-4">Discussion</h2>
       <p>
-        If you're familiar with Power Automate Cloud, you'll know that there is a 'HTTP' action that allows you to do what I described above without leaving the Microsoft ecosystem.
-        You may also know that the 'HTTP' action is a premium feature in Power Automate Cloud. There are however some drawbacks to using Power Automate Cloud for this, such as
-        slower processing and limited data manipulation. You could also have Power Automate Cloud pass the request and data manipulation task to Power Automate Desktop (another premium feature),
-        and you could even have that desktop flow run a script to do the request and data manipulation but there is one big drawback to this - although Power Automate Cloud can run
-        multiple instances of a flow concurrently (at the same time), Power Automate Desktop doesn't. So if a Power Automate Desktop flow is running, any other cloud flows have to
-        wait for it to finish before running it again.
+        For the discussion section, i'll go through all of the questions I could foresee someone asking about this project, in a bit of a Q&A format.
+      </p>
+      <br>
+      <p>
+        <b>Why not just use the standard web frontend/backend?</b>
+      </p>
+      <br>
+      <p>
+        At the company I work for, like any other corporate firm, the IT environment is extremely locked down. The network at my office doesn't allow for local 
+        communication, and as I sit within a non-technical team, there's a lot of red tape around me going anywhere near the intranet. For example, I was given the green light
+        to take over development of an internal application. I've been bouncing around from contact to contact for the last 6 months (at the time of writing this), trying to get the access
+        I need to even access the virtual machine it runs on. Given this environment, in order to deliver tools for my team whilst we're still young, I need to get creative
+        with the tools I have at my disposal.
+      </p>
+      <p>
+        <b>Why didn't you use Power Automate's HTTP action to make the request to get data from the third party API?</b>
+      </p>
+      <br>
+      <p>
+        Power Automate's HTTP action requires a Power Automate Premium license, and I just have a Power Automate free license at work. 'Why didn't you just ask for a premium license?' I
+        hear you ask. A premium license means more expenditure for the company, and if you're using this on a small scale, then the cost of a premium license can easily exceed the value
+        you're providing in return. Even if you had a premium license, a local machine making a HTTP request is going to be far faster than making a HTTP request with power automate cloud, and
+        if you need to make more than one request for a task, that time difference is just going to compound. This Pseudo API concept also isn't limited to just making HTTP requests. By passing the
+        task to python locally, you have the vast python ecosytem at your disposal, so the possibilities are pretty much limitless.
+      </p>
+      <br>
+      <p>
+        <b>Are you not concerned about the amount of power platform requests you'd be using?</b>
+      </p>
+      <br>
+      <p>
+        Mindful yes, concerned no. This project is all about scale. As long as you are mindful of the 6,000 request limit per user per day for free users (including yourself) in the building of
+        your power app and your power automate flows, you should be able squeeze every last drop of value of this before having to scale up. The first limit you would hit is with power automate. Virtually
+        every action that gets used in your flows is going to count as a request towards your limit. However, by the time you've hit that milestone, you're likely already providing an amount of value
+        that would exceed the cost of a power automate premium license and therefore providing you with that would be a no-brainer. Although, before you even get to that point, you're main concern
+        will probably be resource usage on your always-on machine, depending on the tasks you're running.
       </p>
     </div>
   </main>
