@@ -1,352 +1,514 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Pseudo API</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-</head>
-
-<body class="bg-white text-gray-900">
-
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+  <title>
+   Pseudo API
+  </title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+ </head>
+ <body class="bg-white text-gray-900">
   <!-- Header Section -->
   <header class="bg-blue-600 text-white py-6">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-      <h1 class="text-3xl font-semibold">Elliot Currie</h1>
-
-      <!-- Desktop Nav -->
-      <nav class="hidden sm:block">
-        <ul class="flex space-x-6">
-          <li><a href="index.html" class="hover:text-gray-300">Home</a></li>
-          <li><a href="about.html" class="hover:text-gray-300">About Me</a></li>
-          <li><a href="projects.html" class="hover:text-gray-300">Projects</a></li>
-          <li><a href="contact.html" class="hover:text-gray-300">Contact</a></li>
-        </ul>
-      </nav>
-
-      <!-- Hamburger Button (Mobile Only) -->
-      <button
-        id="menu-button"
-        type="button"
-        aria-label="Toggle navigation"
-        aria-expanded="false"
-        class="sm:hidden p-2 -m-2 rounded-md focus:outline-none focus-visible:outline-none"
-        style="outline: none; box-shadow: none; -webkit-tap-highlight-color: transparent;"
-      >
-        <svg
-          class="w-8 h-8 text-white"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          style="outline: none; box-shadow: none;"
-        >
-          <line x1="3" y1="12" x2="21" y2="12" />
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <line x1="3" y1="18" x2="21" y2="18" />
-        </svg>
-      </button>
-    </div>
-
-    <!-- Mobile Navigation -->
-    <div id="mobile-menu" class="sm:hidden px-4 mt-4 hidden">
-      <ul class="space-y-4">
-        <li><a href="index.html" class="block hover:text-gray-300">Home</a></li>
-        <li><a href="about.html" class="block hover:text-gray-300">About Me</a></li>
-        <li><a href="projects.html" class="block hover:text-gray-300">Projects</a></li>
-        <li><a href="contact.html" class="block hover:text-gray-300">Contact</a></li>
-      </ul>
-    </div>
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+    <h1 class="text-3xl font-semibold">
+     Elliot Currie
+    </h1>
+    <!-- Desktop Nav -->
+    <nav class="hidden sm:block">
+     <ul class="mt-4 space-x-6 flex">
+      <li>
+       <a class="hover:text-gray-300" href="index.html">
+        Home
+       </a>
+      </li>
+      <li>
+       <a class="hover:text-gray-300" href="about.html">
+        About Me
+       </a>
+      </li>
+      <li>
+       <a class="hover:text-gray-300" href="projects.html">
+        Projects
+       </a>
+      </li>
+      <li>
+       <a class="hover:text-gray-300" href="contact.html">
+        Contact
+       </a>
+      </li>
+     </ul>
+    </nav>
+    <!-- Hamburger Button (Mobile Only) -->
+    <button aria-expanded="false" aria-label="Toggle navigation" class="sm:hidden p-2 -m-2 rounded-md focus:outline-none focus-visible:outline-none" id="menu-button" style="outline: none; box-shadow: none; -webkit-tap-highlight-color: transparent;" type="button">
+     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="outline: none; box-shadow: none;" viewbox="0 0 24 24">
+      <line x1="3" x2="21" y1="12" y2="12">
+      </line>
+      <line x1="3" x2="21" y1="6" y2="6">
+      </line>
+      <line x1="3" x2="21" y1="18" y2="18">
+      </line>
+     </svg>
+    </button>
+   </div>
+   <!-- Mobile Navigation -->
+   <div class="sm:hidden px-4 mt-4 hidden" id="mobile-menu">
+    <ul class="mt-4 space-y-4">
+     <li>
+      <a class="block hover:text-gray-300" href="index.html">
+       Home
+      </a>
+     </li>
+     <li>
+      <a class="block hover:text-gray-300" href="about.html">
+       About Me
+      </a>
+     </li>
+     <li>
+      <a class="block hover:text-gray-300" href="projects.html">
+       Projects
+      </a>
+     </li>
+     <li>
+      <a class="block hover:text-gray-300" href="contact.html">
+       Contact
+      </a>
+     </li>
+    </ul>
+   </div>
   </header>
-
   <!-- Main Content -->
   <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
-    <h1 class="text-3xl font-bold">Pseudo API</h1>
-
-    <a 
-      href="https://raw.githubusercontent.com/ElliotCurrie/elliotcurrie.github.io/main/project_files/pseudo_api.zip" 
-      download 
-      class="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl shadow hover:bg-blue-700 transition">
-      Download project files
-    </a>
-
-    <div class="prose max-w-none">
-      <h2 id="disclaimer" class="text-2xl font-semibold mb-4">Disclaimer</h2>
-      <p>
-        This was an idea thought up for the contact centre I work at, in my role as a data engineer, within a
-        <strong>constrained corporate IT environment</strong>. After some tinkering, this seems to be the most reliable/seamless
+   <h1 class="text-3xl font-bold">
+    Pseudo API
+   </h1>
+   <a class="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl shadow hover:bg-blue-700 transition" download="" href="https://raw.githubusercontent.com/ElliotCurrie/elliotcurrie.github.io/main/project_files/pseudo_api.zip">
+    Download project files
+   </a>
+   <div class="prose max-w-none">
+    <h2 class="font-semibold mb-4 text-2xl" id="disclaimer">
+     Disclaimer
+    </h2>
+    <p class="mt-4">
+     This was an idea thought up for the contact centre I work at, in my role as a data engineer, within a
+     <strong>
+      constrained corporate IT environment
+     </strong>
+     . After some tinkering, this seems to be the most reliable/seamless
         method I've found given the constraints, the constraints are explored in the discussion section of this project.
-      </p>
-
-      <h2 id="overview" class="text-2xl font-semibold mt-16 mb-4">Overview</h2>
-      <h2 id="overview" class="text-2xl font-semibold mt-16 mb-4">Overview</h2>
-      <p>
-        This project is essentially a pseudo API system I built to handle function requests inside a restricted corporate environment. It allows users to submit parameters through a Power App form, which then gets picked up by a local Python script that executes the requested function, and finally sends the response back into the Microsoft ecosystem via Power Automate.
-      </p>
-      <br>
-      <p>
-        The initial purpose was to combine Microsoft-originated data with call log data from my own systems before pushing the result back into SharePoint. But I quickly realised this could be scaled up—almost like a soft proof-of-concept for justifying a proper API or backend service down the line.
-      </p>
-      <br>
-      <p>
-        What this really does is prove the value of custom tooling in areas that normally get ignored due to lack of IT support. It's not about replacing real infrastructure, it’s about showing there's a reason to invest in it.
-      </p>
-      <br>
-      <div class="w-full max-w-3xl mx-auto aspect-video">
-        <video controls class="w-full h-full object-cover rounded-xl shadow">
-          <source src="media/pseudo_api/pseudo_api.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      </div>
-
-      <h2 id="tools" class="text-2xl font-semibold mt-16 mb-4">Tools & Workarounds</h2>
-      <p>Due to the limitations of the environment, I had to employ some unconventional but effective solutions to get
-        this project operational:</p>
-      <ul class="list-disc list-inside space-y-2 mt-4">
-        <li><strong>SharePoint</strong> – Used for storing function names, parameters, and logging requests.</li>
-        <li><strong>Power Apps (Free License)</strong> – Hosts a form tied to the SharePoint list and Excel workbook.</li>
-        <li><strong>Excel</strong> – Stored locally but synced with OneDrive for external access.</li>
-        <li><strong>OneDrive</strong> – Hosts the Excel workbook and keeps it synced.</li>
-        <li><strong>Python</strong> – Monitors the Excel sheet locally and executes functions asynchronously.</li>
-        <li><strong>Power Automate (Free License)</strong> – Receives responses via HTTP and updates SharePoint accordingly.</li>
-        <li><strong>Always-on PC</strong> – Required to run the local Python listener.</li>
-      </ul>
-
-      <h2 id="workflow" class="text-2xl font-semibold mt-16 mb-4">Workflow</h2>
-      <p>Here’s how it operates at a high level:</p>
-      <ol class="list-decimal list-inside space-y-5 mt-4">
-        <li>User submits a form via Power Apps with function and parameters.</li>
-        <li>On submit, Power Apps writes to SharePoint and the synced Excel workbook.</li>
-        <li>Python detects new spreadsheet entries, and runs the function described.</li>
-        <li>Python makes a HTTP request to a Power Automate HTTP trigger.</li>
-        <li>Power Automate updates SharePoint, logging the outcome and handles any follow-up actions.</li>
-      </ol>
-
-      <h2 id="technical_breakdown" class="text-2xl font-semibold mt-16 mb-4">Technical Breakdown</h2>
-      <h3 id="excel_workbook" class="text-xl font-semibold mb-4">Excel Workbook</h3>
-      <p>
-        We’ll start by creating the spreadsheet to receive requests from Power Apps. 
-        We’ll create a table with the headers: ‘sharepoint_item_id, ‘function’, and ‘parameters’ (Figure 1). 
-        I’ve named this table ‘request_log’ so it’s recognisable in the Power App’s list of data sources if we ever want to add more excel sources down the line.
-      </p>
-      <br>
-      <img src="media/pseudo_api/requests_excel.png" class="w-full">
-      <br>
-      <p>
-        Then we’ll save that to a folder that syncs with OneDrive with the name ‘requests’ (Figure 2), 
+    </p>
+    <h2 class="font-semibold mb-4 text-2xl mt-16" id="overview">
+     Overview
+    </h2>
+    <p class="mt-4">
+     The initial purpose of this project was to allow the transfer of data from the Microsoft ecosystem to my local
+        DB, so it could be merged with another dataset (call logs) before being sent back to the Microsoft ecosystem.
+        However, since then I've realised that this idea has scope to scale.
+    </p>
+    <br/>
+    <p class="mt-4">
+     The problem this solves is proving to your company that a particular team/department would benefit from a custom API, and should thus have more
+        resources poured into it. It's more of a strategic first step towards change than the final product.
+    </p>
+    <br/>
+    <div class="w-full max-w-3xl mx-auto aspect-video">
+     <video class="w-full h-full object-cover rounded-xl shadow" controls="">
+      <source src="media/pseudo_api/pseudo_api.mp4" type="video/mp4"/>
+      Your browser does not support the video tag.
+     </video>
+    </div>
+    <h2 class="font-semibold mb-4 text-2xl mt-16" id="tools">
+     Tools &amp; Workarounds
+    </h2>
+    <p class="mt-4">
+     Due to the limitations of the environment, I had to employ some unconventional but effective solutions to get
+        this project operational:
+    </p>
+    <ul class="list-disc mt-4 space-y-2 list-inside">
+     <li>
+      <strong>
+       SharePoint
+      </strong>
+      – Used for storing function names, parameters, and logging requests.
+     </li>
+     <li>
+      <strong>
+       Power Apps (Free License)
+      </strong>
+      – Hosts a form tied to the SharePoint list and Excel workbook.
+     </li>
+     <li>
+      <strong>
+       Excel
+      </strong>
+      – Stored locally but synced with OneDrive for external access.
+     </li>
+     <li>
+      <strong>
+       OneDrive
+      </strong>
+      – Hosts the Excel workbook and keeps it synced.
+     </li>
+     <li>
+      <strong>
+       Python
+      </strong>
+      – Monitors the Excel sheet locally and executes functions asynchronously.
+     </li>
+     <li>
+      <strong>
+       Power Automate (Free License)
+      </strong>
+      – Receives responses via HTTP and updates SharePoint accordingly.
+     </li>
+     <li>
+      <strong>
+       Always-on PC
+      </strong>
+      – Required to run the local Python listener.
+     </li>
+    </ul>
+    <h2 class="font-semibold mb-4 text-2xl mt-16" id="workflow">
+     Workflow
+    </h2>
+    <p class="mt-4">
+     Here’s how it operates at a high level:
+    </p>
+    <ol class="mt-4 list-decimal space-y-5 list-inside">
+     <li>
+      User submits a form via Power Apps with function and parameters.
+     </li>
+     <li>
+      On submit, Power Apps writes to SharePoint and the synced Excel workbook.
+     </li>
+     <li>
+      Python detects new spreadsheet entries, and runs the function described.
+     </li>
+     <li>
+      Python makes a HTTP request to a Power Automate HTTP trigger.
+     </li>
+     <li>
+      Power Automate updates SharePoint, logging the outcome and handles any follow-up actions.
+     </li>
+    </ol>
+    <h2 class="font-semibold mb-4 text-2xl mt-16" id="technical_breakdown">
+     Technical Breakdown
+    </h2>
+    <h3 class="font-semibold mb-4 text-xl mt-4" id="excel_workbook">
+     Excel Workbook
+    </h3>
+    <p class="mt-4">
+     We’ll start by creating the spreadsheet to receive requests from Power Apps.
+    </p>
+    <p class="mt-4">
+     I’ve named this table ‘request_log’ so it’s recognisable in the Power App’s list of data sources if we ever want to add more excel sources down the line.
+    </p>
+    <p class="mt-4">
+     We’ll create a table with the headers: ‘sharepoint_item_id, ‘function’, and ‘parameters’ (image below).
+    </p>
+    <br/>
+    <img class="mt-4 w-full" src="media/pseudo_api/requests_excel.png"/>
+    <br/>
+    <p class="mt-4">
+     Then we’ll save that to a folder that syncs with OneDrive with the name ‘requests’ (image below), 
         ensuring that the OneDrive folder is part of the same environment where we’ll create the Power App, 
         SharePoint list, and the Power Automate flow. In my case, my environment is ‘EC’.
-      </p>
-      <h3 id="excel_workbook" class="text-xl font-semibold mb-4 mt-8">Excel Workbook</h3>
-      <p>
-        We’ll also create a CSV called ‘requests_actioned’ (Figure 2), containing the same headers as OneDrive spreadsheet as well as some additional headers: 
-        ‘created, ‘completed’, ‘status’, and ‘failure_reason’. I’ve saved this to the same folder for this example but it’s better to keep this file in an offline
-        folder to avoid needless disk usage from OneDrive syncs. It would be wise to create a backup file in OneDrive though, which could be overwritten daily during downtime.
-      </p>
-      <br>
-      <img src="media/pseudo_api/onedrive_files_1.png" class="w-full">
-      <h3 id="python_script" class="text-xl font-semibold mb-4 mt-8">Python Script (Part 1)</h3>
-      <p>
-        We’ll need a Python script to monitor the spreadsheet we’ve just created. To be able to catch new data as soon as it syncs, we need to ensure
-        that the spreadsheet is open. Because of this, we can’t use something like Pandas to read the spreadsheet as it’ll be read from disk. In practice, 
-        if you were to use Pandas to poll the spreadsheet, you would find it takes an excessive amount of time to see new data which isn’t ideal for this use case. 
-        Therefore, we need to use a library like xlwings, which will allow us to keep the spreadsheet open and read it in a loop.
-      </p>
-      <br>
-      <p>
-        To get the data from 'requests.xlsx', and read from and append to 'requests_actioned.csv', we’ll define a few functions:
-      </p>
-      <ul class="list-disc list-inside space-y-2 mt-4">
-        <li>open_excel</li>
-        <li>read_table</li>
-        <li>read_csv</li>
-        <li>append_csv</li>
-      </ul>
-      <br>
-      <p>
-        The dependancies for this set of functions are xlwings (imported as xw) for reading 'requests.xlsx', and csv for reading and appending to 'requests_actioned.csv'.
-      </p>
-      <br>
-      <p>
-        We'll also define a function for users to call, <strong>lookup_a_postcode</strong>, which has aiohttp as a dependancy. We'll use aiohtttp to make asynchronous HTTP
+    </p>
+    <h3 class="mt-8 mt-4 font-semibold mb-4 text-xl" id="excel_workbook">
+     Excel Workbook
+    </h3>
+    <p class="mt-4">
+     We’ll also create a CSV called ‘requests_actioned’ (image below), containing the same headers as OneDrive spreadsheet as well as some additional headers: 
+        ‘created, ‘completed’, ‘status’, and ‘failure_reason’.
+    </p>
+    <p class="mt-4">
+     It would be wise to create a backup file in OneDrive though, which could be overwritten daily during downtime.
+    </p>
+    <p class="mt-4">
+     I’ve saved this to the same folder for this example but it’s better to keep this file in an offline
+        folder to avoid needless disk usage from OneDrive syncs.
+    </p>
+    <br/>
+    <img class="mt-4 w-full" src="media/pseudo_api/onedrive_files_1.png"/>
+    <h3 class="mt-8 mt-4 font-semibold mb-4 text-xl" id="python_script">
+     Python Script (Part 1)
+    </h3>
+    <p class="mt-4">
+     We’ll need a Python script to monitor the spreadsheet we’ve just created.
+    </p>
+    <p class="mt-4">
+     Therefore, we need to use a library like xlwings, which will allow us to keep the spreadsheet open and read it in a loop.
+    </p>
+    <p class="mt-4">
+     In practice, 
+        if you were to use Pandas to poll the spreadsheet, you would find it takes an excessive amount of time to see new data which isn’t ideal for this use case.
+    </p>
+    <p class="mt-4">
+     Because of this, we can’t use something like Pandas to read the spreadsheet as it’ll be read from disk.
+    </p>
+    <p class="mt-4">
+     To be able to catch new data as soon as it syncs, we need to ensure
+        that the spreadsheet is open.
+    </p>
+    <br/>
+    <p class="mt-4">
+     To get the data from 'requests.xlsx', and read from and append to 'requests_actioned.csv', we’ll define a few functions:
+    </p>
+    <ul class="list-disc mt-4 space-y-2 list-inside">
+     <li>
+      open_excel
+     </li>
+     <li>
+      read_table
+     </li>
+     <li>
+      read_csv
+     </li>
+     <li>
+      append_csv
+     </li>
+    </ul>
+    <br/>
+    <p class="mt-4">
+     The dependancies for this set of functions are xlwings (imported as xw) for reading 'requests.xlsx', and csv for reading and appending to 'requests_actioned.csv'.
+    </p>
+    <br/>
+    <p class="mt-4">
+     We'll also define a function for users to call,
+     <strong>
+      lookup_a_postcode
+     </strong>
+     , which has aiohttp as a dependancy. We'll use aiohtttp to make asynchronous HTTP
         requests.
-      </p>
-      <h3 id="open_excel_function" class="text-lg font-semibold mt-8 mb-4">open_excel</h3>
-      <p>
-        This function opens an instance of excel, opens a particular file, and outputs a worksheet object. It takes two input arguments, 'xl_path' and 'sheet_name'.
-      </p>
-      <br>
-      <p>
-        In this example, 'xl_path' is the local path to 'request.xlsx', and 'sheet_name' is the name of the worksheet that contains the table we created.
-      </p>
-      <pre class="w-full whitespace-pre-wrap break-words overflow-x-auto p-4 bg-gray-100 rounded">
-        <code class="block">
-def open_excel(xl_path, sheet_name):
-    # Start a visible Excel instance
-    app = xw.App(visible=True)
+    </p>
+    <h3 class="mt-8 mt-4 text-lg font-semibold mb-4" id="open_excel_function">
+     open_excel
+    </h3>
+    <p class="mt-4">
+     This function opens an instance of excel, opens a particular file, and outputs a worksheet object. It takes two input arguments, 'xl_path' and 'sheet_name'.
+    </p>
+    <br/>
+    <p class="mt-4">
+     In this example, 'xl_path' is the local path to 'request.xlsx', and 'sheet_name' is the name of the worksheet that contains the table we created.
+    </p>
+    <pre class="p-4 w-full bg-gray-100 rounded break-words mt-4 whitespace-pre-wrap overflow-x-auto">
+        <code class="block">def open_excel(xl_path, sheet_name):
+# Start a visible Excel instance
+app = xw.App(visible=True)
 
-    # Open the predefined path in Excel instance
-    wb = app.books.open(xl_path)
+# Open the predefined path in Excel instance
+wb = app.books.open(xl_path)
 
-    # Close new workbook that opens by default from running xw.App()
-    if any(book.name == "Book1" for book in app.books):
-        app.books["Book1"].close()
+# Close new workbook that opens by default from running xw.App()
+if any(book.name == "Book1" for book in app.books):
+app.books["Book1"].close()
 
-    # Return the worksheet as an output using the prefined sheet name
-    return wb.sheets[sheet_name]
-        </code>
+# Return the worksheet as an output using the prefined sheet name
+return wb.sheets[sheet_name]</code>
       </pre>
-      <h3 id="read_table_function" class="text-lg font-semibold mt-8 mb-4">read_table</h3>
-      <p>
-        This function gets a table object from within a worksheet using the table's name, gets the cell range that the table exists in, and outputs the cell values in that
+    <h3 class="mt-8 mt-4 text-lg font-semibold mb-4" id="read_table_function">
+     read_table
+    </h3>
+    <p class="mt-4">
+     This function gets a table object from within a worksheet using the table's name, gets the cell range that the table exists in, and outputs the cell values in that
         cell range as a list of lists. Each child list within the parent list respresents a row of data in the table. It takes two input arguments, 'ws' and 'table_name'.
-      </p>
-      <br>
-      <p>
-        In this example, 'ws' is the worksheet object that we get from the 'open_excel' function, and 'table_name' is the name of the table in 'requests.xlsx'.
-      </p>
-      <pre class="w-full whitespace-pre-wrap break-words overflow-x-auto p-4 bg-gray-100 rounded">
-        <code class="block">
-def read_table(ws, table_name):
-    # Get the table object using the predefined table name
-    table = ws.api.ListObjects(table_name)
+    </p>
+    <br/>
+    <p class="mt-4">
+     In this example, 'ws' is the worksheet object that we get from the 'open_excel' function, and 'table_name' is the name of the table in 'requests.xlsx'.
+    </p>
+    <pre class="p-4 w-full bg-gray-100 rounded break-words mt-4 whitespace-pre-wrap overflow-x-auto">
+        <code class="block">def read_table(ws, table_name):
+# Get the table object using the predefined table name
+table = ws.api.ListObjects(table_name)
 
-    # Get the cell range of the table
-    data_range = table.Range
+# Get the cell range of the table
+data_range = table.Range
 
-    # Return the data within the table cell range as a list of lists
-    return ws.range((data_range.Row, data_range.Column)).expand().value
-        </code>
+# Return the data within the table cell range as a list of lists
+return ws.range((data_range.Row, data_range.Column)).expand().value</code>
       </pre>
-      <h3 id="read_csv_function" class="text-lg font-semibold mt-8 mb-4">read_csv</h3>
-      <p>
-        This function reads a csv and outputs the data within as a list of lists, just like our 'read_table' function. It takes one input argument, 'csv_path'. By default,
+    <h3 class="mt-8 mt-4 text-lg font-semibold mb-4" id="read_csv_function">
+     read_csv
+    </h3>
+    <p class="mt-4">
+     This function reads a csv and outputs the data within as a list of lists, just like our 'read_table' function. It takes one input argument, 'csv_path'. By default,
         the 'mode' argument of the open function is set to 'r' (read) but i've added it in for the sake of clarity.
-      </p>
-      <br>
-      <p>
-        Another argument in the open function worth mentioning is 'newline'. In a csv, each row ends with a newline character when written (\r\n on Windows, and \n 
-        on UNIX/MacOS), which you can't see unless you read it as bytes. Python replaces \n with \r\n by default in csvs when read as text. So because we've written 
-        the csv with Windows, Python converts \r\n to \r\r\n, which would create blank rows. So by setting the newline argument to an empty string, we're telling Python 
+    </p>
+    <br/>
+    <p class="mt-4">
+     Another argument in the open function worth mentioning is 'newline'.
+    </p>
+    <p class="mt-4">
+     So by setting the newline argument to an empty string, we're telling Python 
         to ignore the newline characters, and we let the csv module instead handle it correctly with the 'csv.reader' function.
-      </p>
-      <br>
-      <p>
-        In this example, 'csv_path' is the local path to 'requests_actioned.csv'.
-      </p>
-      <pre class="w-full whitespace-pre-wrap break-words overflow-x-auto p-4 bg-gray-100 rounded">
-        <code class="block">
-def read_csv(csv_path):
-    # Open csv at the predefined path
-    with open(csv_path, mode='r', newline='') as f:
-        # Read csv and return data as a list of lists
-        return list(csv.reader(f))
-        </code>
+    </p>
+    <p class="mt-4">
+     So because we've written 
+        the csv with Windows, Python converts \r\n to \r\r\n, which would create blank rows.
+    </p>
+    <p class="mt-4">
+     Python replaces \n with \r\n by default in csvs when read as text.
+    </p>
+    <p class="mt-4">
+     In a csv, each row ends with a newline character when written (\r\n on Windows, and \n 
+        on UNIX/MacOS), which you can't see unless you read it as bytes.
+    </p>
+    <br/>
+    <p class="mt-4">
+     In this example, 'csv_path' is the local path to 'requests_actioned.csv'.
+    </p>
+    <pre class="p-4 w-full bg-gray-100 rounded break-words mt-4 whitespace-pre-wrap overflow-x-auto">
+        <code class="block">def read_csv(csv_path):
+# Open csv at the predefined path
+with open(csv_path, mode='r', newline='') as f:
+# Read csv and return data as a list of lists
+return list(csv.reader(f))</code>
       </pre>
-      <h3 id="append_csv_function" class="text-lg font-semibold mt-8 mb-4">append_csv</h3>
-      <p>
-        This function appends a row of data to a csv and outputs the data within as a list of lists, just like our 'read_table' function. It takes one input argument, 'csv_path'.
-      </p>
-      <br>
-      <p>
-        In this example, 'csv_path' is the local path to 'requests_actioned.csv'.
-      </p>
-      <pre class="w-full whitespace-pre-wrap break-words overflow-x-auto p-4 bg-gray-100 rounded">
-        <code class="block">
-def append_csv(csv_path, data):
-    # Open csv at the predefined path in append mode
-    with open(csv_path, mode='a', newline='') as f:
-        # Write input data as rows to csv
-        csv.writer(f).writerow(data)
-        </code>
+    <h3 class="mt-8 mt-4 text-lg font-semibold mb-4" id="append_csv_function">
+     append_csv
+    </h3>
+    <p class="mt-4">
+     This function appends a row of data to a csv and outputs the data within as a list of lists, just like our 'read_table' function. It takes one input argument, 'csv_path'.
+    </p>
+    <br/>
+    <p class="mt-4">
+     In this example, 'csv_path' is the local path to 'requests_actioned.csv'.
+    </p>
+    <pre class="p-4 w-full bg-gray-100 rounded break-words mt-4 whitespace-pre-wrap overflow-x-auto">
+        <code class="block">def append_csv(csv_path, data):
+# Open csv at the predefined path in append mode
+with open(csv_path, mode='a', newline='') as f:
+# Write input data as rows to csv
+csv.writer(f).writerow(data)</code>
       </pre>
-      <h3 id="lookup_a_postcode_function" class="text-lg font-semibold mt-8 mb-4">lookup_a_postcode</h3>
-      <p>
-        This function makes a HTTP GET request to get data from an API, waits for the response, constructs a payload, then sends the payload in a HTTP POST request to
-        a Power Automate flow that has a 'When a HTTP request is received' trigger. This is an asynchronous function, which is represented by the 'async' keyword at the
-        beginning of the function definition. This allows us to execute this function in the background without blocking the 'main' function of the script (explained in Part 2).
+    <h3 class="mt-8 mt-4 text-lg font-semibold mb-4" id="lookup_a_postcode_function">
+     lookup_a_postcode
+    </h3>
+    <p class="mt-4">
+     This function makes a HTTP GET request to get data from an API, waits for the response, constructs a payload, then sends the payload in a HTTP POST request to
+        a Power Automate flow that has a 'When a HTTP request is received' trigger.
+    </p>
+    <p class="mt-4">
+     This allows us to execute this function in the background without blocking the 'main' function of the script (explained in Part 2).
         As we can run functions in the background, it allows multiple separate instances of this function to be running at the same time.
-      </p>
-      <br>
-      <p>
-        The API we're going to be calling in the first request is the Postcodes.io API, which is used for searching, validating, and geolocating UK postcodes. In particular,
-        we'll be calling the Lookup Postcode endpoint which requires you to make a GET request to 'https://api.postcodes.io/postcodes/', followed by a postcode. In return,
-        the API will respond with a JSON object containing two keys: 'status', and 'result'. The value of 'status' will be a three-digit status code integer, which indicates 
-        what happened when the server processed the request. The value of 'result' will be a JSON object containing location data associated with the postcode we inserted into
-        the endpoint url. The 'result' object is what we'll be sending to Power Automate in our second request.
-      </p>
-      <pre class="w-full whitespace-pre-wrap break-words overflow-x-auto p-4 bg-gray-100 rounded">
-        <code class="block">
-async def postcode_lookup(sharepoint_item_id, recipient_email, postcode):
-    # Define the endpoint url for the api we're going to get data from
-    postcode_lookup_url = f"https://api.postcodes.io/postcodes/{postcode}"
+    </p>
+    <p class="mt-4">
+     This is an asynchronous function, which is represented by the 'async' keyword at the
+        beginning of the function definition.
+    </p>
+    <br/>
+    <p class="mt-4">
+     The API we're going to be calling in the first request is the Postcodes.io API, which is used for searching, validating, and geolocating UK postcodes.
+    </p>
+    <p class="mt-4">
+     The 'result' object is what we'll be sending to Power Automate in our second request.
+    </p>
+    <p class="mt-4">
+     The value of 'result' will be a JSON object containing location data associated with the postcode we inserted into
+        the endpoint url.
+    </p>
+    <p class="mt-4">
+     The value of 'status' will be a three-digit status code integer, which indicates 
+        what happened when the server processed the request.
+    </p>
+    <p class="mt-4">
+     In return,
+        the API will respond with a JSON object containing two keys: 'status', and 'result'.
+    </p>
+    <p class="mt-4">
+     In particular,
+        we'll be calling the Lookup Postcode endpoint which requires you to make a GET request to 'https://api.postcodes.io/postcodes/', followed by a postcode.
+    </p>
+    <pre class="p-4 w-full bg-gray-100 rounded break-words mt-4 whitespace-pre-wrap overflow-x-auto">
+        <code class="block">async def postcode_lookup(sharepoint_item_id, recipient_email, postcode):
+# Define the endpoint url for the api we're going to get data from
+postcode_lookup_url = f"https://api.postcodes.io/postcodes/{postcode}"
 
-    # Start an asynchronous HTTP session
-    async with aiohttp.ClientSession() as session:
-        # Make the GET request and wait for the response
-        async with session.get(postcode_lookup_url) as postcode_lookup_response:
-            # Store the response in a variable
-            postcode_lookup_data = await postcode_lookup_response.json()
-        
-        # Extract the value of the 'result' key
-        postcode_data = postcode_lookup_data["result"]
+# Start an asynchronous HTTP session
+async with aiohttp.ClientSession() as session:
+# Make the GET request and wait for the response
+async with session.get(postcode_lookup_url) as postcode_lookup_response:
+# Store the response in a variable
+postcode_lookup_data = await postcode_lookup_response.json()
 
-        # Construct the data payload to send to power automate, as json
-        payload = {
-            "sharepoint_item_id": sharepoint_item_id,
-            "recipient_email": recipient_email,
-            "postcode_data": postcode_data,
-            "status": "completed"
-        }
+# Extract the value of the 'result' key
+postcode_data = postcode_lookup_data["result"]
 
-        # Define the endpoint url generated by the power automate HTTP trigger
-        power_automate_url = ''
+# Construct the data payload to send to power automate, as json
+payload = {
+"sharepoint_item_id": sharepoint_item_id,
+"recipient_email": recipient_email,
+"postcode_data": postcode_data,
+"status": "completed"
+}
 
-        # Trigger the power automate flow and wait for the response
-        async with session.post(power_automate_url, json=payload) as power_automate_response:
-            # Return response as an output once received
-            return await power_automate_response.json()
-        </code>
+# Define the endpoint url generated by the power automate HTTP trigger
+power_automate_url = ''
+
+# Trigger the power automate flow and wait for the response
+async with session.post(power_automate_url, json=payload) as power_automate_response:
+# Return response as an output once received
+return await power_automate_response.json()</code>
       </pre>
-      <h3 id="sharepoint" class="text-xl font-semibold mt-16 mb-4">SharePoint</h3>
-      <p>
-        Next, we'll to create a SharePoint list which is going to operate as a log of requests that sits within the Microsoft ecosystem. We'll call this list 'Requests', and
-        create four columns: Function, Parameters, Completed, and Response. These columns are boxed in red, in the screenshot below. The other columns in the screenshot are
+    <h3 class="mt-4 mt-16 font-semibold mb-4 text-xl" id="sharepoint">
+     SharePoint
+    </h3>
+    <p class="mt-4">
+     Next, we'll to create a SharePoint list which is going to operate as a log of requests that sits within the Microsoft ecosystem.
+    </p>
+    <p class="mt-4">
+     The other columns in the screenshot are
         default metadata columns created by SharePoint.
-      </p>
-      <img src="media/pseudo_api/sharepoint_list.png" class="w-full">
-      <p>
-        The Function column is going to contain the name of the function we've called, Parameters will contain the parameters for the function we're calling, Completed will
+    </p>
+    <p class="mt-4">
+     These columns are boxed in red, in the screenshot below.
+    </p>
+    <p class="mt-4">
+     We'll call this list 'Requests', and
+        create four columns: Function, Parameters, Completed, and Response.
+    </p>
+    <img class="mt-4 w-full" src="media/pseudo_api/sharepoint_list.png"/>
+    <p class="mt-4">
+     The Function column is going to contain the name of the function we've called, Parameters will contain the parameters for the function we're calling, Completed will
         contain a timestamp which will be updated on completion of the request, and Response will contain the response from the Python script.
-      </p>
-      <h3 id="power_apps" class="text-xl font-semibold mt-16 mb-4">Power Apps</h3>
-      <p>
-        Now we'll create our Power App that the users will interact with to send requests, and in this example, view the response. I won't be going through the whole process
+    </p>
+    <h3 class="mt-4 mt-16 font-semibold mb-4 text-xl" id="power_apps">
+     Power Apps
+    </h3>
+    <p class="mt-4">
+     Now we'll create our Power App that the users will interact with to send requests, and in this example, view the response. I won't be going through the whole process
         of creating the Power App but i'll just lay out the 'important' bits.
-      </p>
-      <br>
-      <p>
-        This Power App has been given two data sources (screenshot below): the 'request_log' table from the OneDrive spreadsheet we created in the Excel Workbook section, and the Requests SharePoint list
+    </p>
+    <br/>
+    <p class="mt-4">
+     This Power App has been given two data sources (screenshot below): the 'request_log' table from the OneDrive spreadsheet we created in the Excel Workbook section, and the Requests SharePoint list
         we created in the previous section.
-      </p>
-      <img src="media/pseudo_api/power_app_data_sources.png" class="w-full">
-      <p>
-        I've created a basic, clean layout with the header and main content separated into different containers (screenshot below). Within the main content container,
-        i've added a tab list which will allow users to switch between requests. I've also added a request container for that particular request, which contains a submit button,
-        a text input for users to submit a postcode, and a response text label. There is also a new form control within the request container that uses the Requests SharePoint
+    </p>
+    <img class="mt-4 w-full" src="media/pseudo_api/power_app_data_sources.png"/>
+    <p class="mt-4">
+     I've created a basic, clean layout with the header and main content separated into different containers (screenshot below).
+    </p>
+    <p class="mt-4">
+     There is also a new form control within the request container that uses the Requests SharePoint
         list as a data source which has been made invisible, which we're going to use in the submit button's OnSelect property.
-      </p>
-      <img src="media/pseudo_api/power_app.png" class="w-full">
-      <p>
-        Now we'll set the submit button's OnSelect property to the below, to pass the data for the request to both of the apps data sources.
-      </p>
-      <pre class="w-full whitespace-pre-wrap break-words overflow-x-auto p-4 bg-gray-100 rounded">
-        <code class="block">
-// Set the submit button's display mode to disabled
+    </p>
+    <p class="mt-4">
+     I've also added a request container for that particular request, which contains a submit button,
+        a text input for users to submit a postcode, and a response text label.
+    </p>
+    <p class="mt-4">
+     Within the main content container,
+        i've added a tab list which will allow users to switch between requests.
+    </p>
+    <img class="mt-4 w-full" src="media/pseudo_api/power_app.png"/>
+    <p class="mt-4">
+     Now we'll set the submit button's OnSelect property to the below, to pass the data for the request to both of the apps data sources.
+    </p>
+    <pre class="p-4 w-full bg-gray-100 rounded break-words mt-4 whitespace-pre-wrap overflow-x-auto">
+        <code class="block">// Set the submit button's display mode to disabled
 Set(var_submit_btn_dm, DisplayMode.Disabled);
 
 // Submit a blank form to the Requests sharepoint list
@@ -359,335 +521,558 @@ Set(var_last_submit, sharepoint_form.LastSubmit);
 Set(var_function_called, "postcode_lookup");
 
 // Set a variable to the function's parameters as a concatenated string
-Set(var_parameter_input, User().Email & ", " & postcode_input.Value);
+Set(var_parameter_input, User().Email &amp; ", " &amp; postcode_input.Value);
 
 // Update the sharepoint item we created with the blank form, with the function name and it's parameters
 Patch(
-    Requests,
-    var_last_submit,
-    {
-        Function: var_function_called,
-        Parameters: var_parameter_input
-    }
+Requests,
+var_last_submit,
+{
+Function: var_function_called,
+Parameters: var_parameter_input
+}
 );
 
 // Write a row to the request_log table in the OneDrive spreadsheet with the form's last submitted sharepoint item id, the function name, and it's parameters
 Patch(
-    request_log,
-    Defaults(request_log),
-    {
-        sharepoint_item_id: var_last_submit.ID,
-        function: var_function_called,
-        parameters: var_parameter_input
-    }
+request_log,
+Defaults(request_log),
+{
+sharepoint_item_id: var_last_submit.ID,
+function: var_function_called,
+parameters: var_parameter_input
+}
 );
 
 // Clear the postcode text input
 Reset(postcode_input);
 
 // Set the submit button's display mode to edit
-Set(var_submit_btn_dm, DisplayMode.Edit);
-        </code>
+Set(var_submit_btn_dm, DisplayMode.Edit);</code>
       </pre>
-      <p>
-        In the above, there's a few things to clear up that we've not yet explained:
-      </p>
-      <ul class="list-disc list-inside space-y-2 mt-4">
-        <li>
-          var_submit_btn_dm is a variable that we've used as the value for the submit button's DisplayMode property. We're disabling the button when it's clicked to avoid
+    <p class="mt-4">
+     In the above, there's a few things to clear up that we've not yet explained:
+    </p>
+    <ul class="list-disc mt-4 space-y-2 list-inside">
+     <li>
+      var_submit_btn_dm is a variable that we've used as the value for the submit button's DisplayMode property. We're disabling the button when it's clicked to avoid
           duplication of requests. The classic button control has a property for this functionality but because we can't not touch shiny new things, we've opted to use the newer
           button control despite it not having this property...
-        </li>
-        <li>
-          We needed the form as a non-interactable control simply to obtain a SharePoint Item ID from the blank form submission, to pass to Python through the OneDrive spreadsheet. 
+     </li>
+     <li>
+      We needed the form as a non-interactable control simply to obtain a SharePoint Item ID from the blank form submission, to pass to Python through the OneDrive spreadsheet. 
           This will allow us to pass the correct data to the correct log in the SharePoint list when we get a response from Python.
-        </li>
-        <li>
-          The response text control's text property has been set to a lookup function to lookup the value of the Response column for the new item we created in the SharePoint list. 
-        </li>
-        <li>
-          There's a timer control on the page that is set to auto-start, to repeat, has it's OnTimerEnd property set to 'Refresh(Requests)' to refresh our SharePoint list automatically,
+     </li>
+     <li>
+      The response text control's text property has been set to a lookup function to lookup the value of the Response column for the new item we created in the SharePoint list.
+     </li>
+     <li>
+      There's a timer control on the page that is set to auto-start, to repeat, has it's OnTimerEnd property set to 'Refresh(Requests)' to refresh our SharePoint list automatically,
           and with a duration of 1 second because we need our request responses yesterday.
-        </li>
-      </ul>
-      <h3 id="power_automate" class="text-xl font-semibold mt-16 mb-4">Power Automate</h3>
-      <h4 id="power_automate_trigger" class="text-lg font-semibold mb-4">Trigger</h4>
-      <p>
-        You may have noticed that in the lookup_a_postcode function from the Python Script (Part 1) section, we've defined the power_automate_url variable as an empty string. Now we'll
-        set up a Power Automate cloud flow with a 'When a HTTP request is recieved' trigger. This will give us the url to use as the endpoint for our second request. The URL will
+     </li>
+    </ul>
+    <h3 class="mt-4 mt-16 font-semibold mb-4 text-xl" id="power_automate">
+     Power Automate
+    </h3>
+    <h4 class="font-semibold mb-4 text-lg mt-4" id="power_automate_trigger">
+     Trigger
+    </h4>
+    <p class="mt-4">
+     You may have noticed that in the lookup_a_postcode function from the Python Script (Part 1) section, we've defined the power_automate_url variable as an empty string.
+    </p>
+    <p class="mt-4">
+     The URL will
         be generated when the flow is saved.
-      </p>
-      <img src="media/pseudo_api/power_automate_trigger.png" class="w-full">
-      <p>
-        There's one very crucial property within the trigger that needs to be changed. By default, the 'Who can trigger the flow?' property is set to 'Any user in my tenant'. With this
-        default setting, for our local Python script to be able to trigger this flow, we'd have to register an app on Azure Active Directory and use MSAL
-        (Microsoft Authentication Library) in the script. As I don't have access to this at my company and don't have the patience for a 6 month back and forth with the IT department, 
+    </p>
+    <p class="mt-4">
+     This will give us the url to use as the endpoint for our second request.
+    </p>
+    <p class="mt-4">
+     Now we'll
+        set up a Power Automate cloud flow with a 'When a HTTP request is recieved' trigger.
+    </p>
+    <img class="mt-4 w-full" src="media/pseudo_api/power_automate_trigger.png"/>
+    <p class="mt-4">
+     There's one very crucial property within the trigger that needs to be changed.
+    </p>
+    <p class="mt-4">
+     As I don't have access to this at my company and don't have the patience for a 6 month back and forth with the IT department, 
         i've set this property to 'Anyone'.
-      </p>
-      <br>
-      <p>
-        Another property worth setting is the Request Body JSON Schema but it's more of an optional thing. This will give the trigger strict guidelines on what data/data types to expect, but will
-        also give us easier access to JSON properties when we're selecting dynamic content to use in the rest of our flow. Because it knows what to expect, it can give us those options
-        for easy selection. If the data you're sending is short and sweet, it's pretty simple to write this manually but there's also an option to 'Use sample payload to
-        generate schema'. So if the payload is of ample size (like in this case), or if you simply can't be bothered writing out the schema manually, you can just paste a sample
-        payload into the input that this option presents. We can just take the structure of the payload from the Python Script (Part 1) section (below) and replace the variables
+    </p>
+    <p class="mt-4">
+     With this
+        default setting, for our local Python script to be able to trigger this flow, we'd have to register an app on Azure Active Directory and use MSAL
+        (Microsoft Authentication Library) in the script.
+    </p>
+    <p class="mt-4">
+     By default, the 'Who can trigger the flow?' property is set to 'Any user in my tenant'.
+    </p>
+    <br/>
+    <p class="mt-4">
+     Another property worth setting is the Request Body JSON Schema but it's more of an optional thing.
+    </p>
+    <p class="mt-4">
+     We can just take the structure of the payload from the Python Script (Part 1) section (below) and replace the variables
         with the data types we know they'll be replaced with at runtime.
-      </p>
-      <pre class="w-full whitespace-pre-wrap break-words overflow-x-auto p-4 bg-gray-100 rounded">
-        <code class="block">
-{
-    "sharepoint_item_id": sharepoint_item_id,
-    "recipient_email": recipient_email,
-    "response": postcode_lookup_data,
-    "status": "completed"
-}
-        </code>
+    </p>
+    <p class="mt-4">
+     So if the payload is of ample size (like in this case), or if you simply can't be bothered writing out the schema manually, you can just paste a sample
+        payload into the input that this option presents.
+    </p>
+    <p class="mt-4">
+     If the data you're sending is short and sweet, it's pretty simple to write this manually but there's also an option to 'Use sample payload to
+        generate schema'.
+    </p>
+    <p class="mt-4">
+     Because it knows what to expect, it can give us those options
+        for easy selection.
+    </p>
+    <p class="mt-4">
+     This will give the trigger strict guidelines on what data/data types to expect, but will
+        also give us easier access to JSON properties when we're selecting dynamic content to use in the rest of our flow.
+    </p>
+    <pre class="p-4 w-full bg-gray-100 rounded break-words mt-4 whitespace-pre-wrap overflow-x-auto">
+        <code class="block">{
+"sharepoint_item_id": sharepoint_item_id,
+"recipient_email": recipient_email,
+"response": postcode_lookup_data,
+"status": "completed"
+}</code>
       </pre>
-      <p>
-        We know that sharepoint_item_id is going to be an integer so we'll replace that with a random integer, recipient email is going to be a string so we'll replace that with
+    <p class="mt-4">
+     We know that sharepoint_item_id is going to be an integer so we'll replace that with a random integer, recipient email is going to be a string so we'll replace that with
         an empty string, we can grab the response from the api documentation to use as the response value, and we can just leave the status value as is because it's pre-set. Once
         that's done, we can just slap that sample payload into the schema generator within the trigger and boom, we've got a JSON schema! Be warned though, the request will be
         rejected if the data you send to the trigger doesn't match that schema but power automate will tell you that in the response of the failed request.
-      </p>
-      <h4 id="power_automate_flow_actions" class="text-lg font-semibold mt-8 mb-4">Flow Actions</h4>
-      <p>
-        The only real action we're going to use in this example is SharePoint's Update Item. We'll use this action to update the SharePoint item in our list we created
+    </p>
+    <h4 class="mt-8 mt-4 text-lg font-semibold mb-4" id="power_automate_flow_actions">
+     Flow Actions
+    </h4>
+    <p class="mt-4">
+     The only real action we're going to use in this example is SharePoint's Update Item. We'll use this action to update the SharePoint item in our list we created
         when we sent the request from Power Apps.
-      </p>
-      <img src="media/pseudo_api/update_sharepoint_item.png" class="w-full">
-      <p>
-        We'll select the site address where we created the list and the list itself using the dropdowns in the action. Then we'll use the sharepoint_item_id from the data passed sent to the trigger to
-        tell the action which item we're updating and the only other two columns we want to update here are Completed, and Response. We'll generate a timestamp using Power Automate's
-        expression functionality with 'convertTimeZone(utcNow(), 'UTC', 'GMT Standard Time')'. In an ideal world, utcNow() would be enough for a timestamp in the UK but because
-        daylight saving time exists, we have to wrap that up snuggly in the convertTimeZone function, specifying the conversion from UTC to GMT. And we'll use the repsonse
+    </p>
+    <img class="mt-4 w-full" src="media/pseudo_api/update_sharepoint_item.png"/>
+    <p class="mt-4">
+     We'll select the site address where we created the list and the list itself using the dropdowns in the action.
+    </p>
+    <p class="mt-4">
+     And we'll use the repsonse
         from the trigger payload to update the response column.
-      </p>
-      <br>
-      <p>
-        Our final action in this flow is the response payload, containing a log of the request (screenshot below), which will be sent back to the Python script to process.
-      </p>
-      <img src="media/pseudo_api/response.png" class="w-full">
-      <h3 id="python_p2" class="text-xl font-semibold mt-16 mb-4">Python Script (Part 2)</h3>
-      <p>
-        For the final piece to the puzzle, we're now going to create the 'main' function in the Python script. This will be where our core logic will be ran from, tieing
+    </p>
+    <p class="mt-4">
+     In an ideal world, utcNow() would be enough for a timestamp in the UK but because
+        daylight saving time exists, we have to wrap that up snuggly in the convertTimeZone function, specifying the conversion from UTC to GMT.
+    </p>
+    <p class="mt-4">
+     We'll generate a timestamp using Power Automate's
+        expression functionality with 'convertTimeZone(utcNow(), 'UTC', 'GMT Standard Time')'.
+    </p>
+    <p class="mt-4">
+     Then we'll use the sharepoint_item_id from the data passed sent to the trigger to
+        tell the action which item we're updating and the only other two columns we want to update here are Completed, and Response.
+    </p>
+    <br/>
+    <p class="mt-4">
+     Our final action in this flow is the response payload, containing a log of the request (screenshot below), which will be sent back to the Python script to process.
+    </p>
+    <img class="mt-4 w-full" src="media/pseudo_api/response.png"/>
+    <h3 class="mt-4 mt-16 font-semibold mb-4 text-xl" id="python_p2">
+     Python Script (Part 2)
+    </h3>
+    <p class="mt-4">
+     For the final piece to the puzzle, we're now going to create the 'main' function in the Python script. This will be where our core logic will be ran from, tieing
         everything together.
-      </p>
-      <br>
-      <p>
-        We'll start by defining a few variables that we'll pass into the functions we created in Part 1: xl_path, csv_path, sheet_name, and table_name.
-      </p>
-      <pre class="w-full whitespace-pre-wrap break-words overflow-x-auto p-4 bg-gray-100 rounded">
-        <code class="block">
-async def main():
-    # Path to 'requests.xlsx'
-    xl_path = r"C:\Users\Elliot\OneDrive - EC\requests.xlsx"
+    </p>
+    <br/>
+    <p class="mt-4">
+     We'll start by defining a few variables that we'll pass into the functions we created in Part 1: xl_path, csv_path, sheet_name, and table_name.
+    </p>
+    <pre class="p-4 w-full bg-gray-100 rounded break-words mt-4 whitespace-pre-wrap overflow-x-auto">
+        <code class="block">async def main():
+# Path to 'requests.xlsx'
+xl_path = r"C:\Users\Elliot\OneDrive - EC\requests.xlsx"
 
-    # Path to 'requests_actioned.csv'
-    csv_path = r"C:\Users\Elliot\OneDrive - EC\requests_actioned.csv"
+# Path to 'requests_actioned.csv'
+csv_path = r"C:\Users\Elliot\OneDrive - EC\requests_actioned.csv"
 
-    # Name of the sheet with the target table
-    sheet_name = "requests"
+# Name of the sheet with the target table
+sheet_name = "requests"
 
-    # Name of the table
-    table_name = "request_log"
+# Name of the table
+table_name = "request_log"
 
-    # Execution delay in seconds
-    poll_interval = 1
+# Execution delay in seconds
+poll_interval = 1
 
-    # Map of function strings to functions
-    function_map = {
-        "postcode_lookup": postcode_lookup
-    }
-        </code>
+# Map of function strings to functions
+function_map = {
+"postcode_lookup": postcode_lookup
+}</code>
       </pre>
-      <p>
-        We also have a couple of other variables here, poll_interval and function_map. We're going to be using an infinite loop in this script so that the script
-        can constantly monitor the 'requests' spreadsheet for new entries. But we need to add a delay to the loop to control the execution speed as if we had no delay,
-        the CPU would execute the loops as fast as it can. This would lead to a large amount of CPU usage and would not allow our background tasks enough time to execute so
-        we've set the poll_interval to 1 second. But realistically, it could be longer than that, because this isn't an application where impact is measured by raw speed.
+    <p class="mt-4">
+     We also have a couple of other variables here, poll_interval and function_map.
+    </p>
+    <p class="mt-4">
+     But realistically, it could be longer than that, because this isn't an application where impact is measured by raw speed.
         As we're executing these tasks via a kind of message queue in the form of excel, we need to map the function name string we're going to recieve from excel, to
         the actual function, which is what function_map is used for.
-      </p>
-      <br>
-      <p>
-        Now we'll create the core logic of the script, code below. The first thing we need to explain here is the nested infinite loop. The inner loop is where the actual work
-        is done but we need to open excel outside of this loop, otherwise every loop iteration would try to open a new instance of excel and our 'requests' spreadsheet. 
-        Along with opening excel, we're going to read the 'requests_actioned' csv and put the sharepoint_id column values into a list. We're also going to define an empty list
-        which will hold the tasks that we're going to run on request by users. These lines, and the inner loop are wrapped in try/except blocks, which is wrapped in a while true
-        loop. The try/except block is used to catch errors and allow the code to keep executing despite them. 'except Exception' will catch non-specific errors. I've put this in here
-        because with absolute consistency, when the first row is added to the spreadsheet's table, reading the table's range raises an exception, which brings this whole house
-        of cards tumbling down. Within the except block, we're printing the error to the terminal which will help us identify any other errors while testing. Although it's
-        probably wise to write these errors to our 'failure_reason' column (which we haven't done in this example) because monitoring the terminal constantly kind of defeats 
-        the purpose of automating stuff. We've also got app.quit() in this block which closes the excel instance and a delay that allows the instance to fully close. We've wrapped
+    </p>
+    <p class="mt-4">
+     This would lead to a large amount of CPU usage and would not allow our background tasks enough time to execute so
+        we've set the poll_interval to 1 second.
+    </p>
+    <p class="mt-4">
+     But we need to add a delay to the loop to control the execution speed as if we had no delay,
+        the CPU would execute the loops as fast as it can.
+    </p>
+    <p class="mt-4">
+     We're going to be using an infinite loop in this script so that the script
+        can constantly monitor the 'requests' spreadsheet for new entries.
+    </p>
+    <br/>
+    <p class="mt-4">
+     Now we'll create the core logic of the script, code below.
+    </p>
+    <p class="mt-4">
+     We've wrapped
         all of this in a while true loop so that when the excel instance closes after an error, it'll just re-open again and be on it's merry way.
-      </p>
-      <br>
-      <p>
-        But fear not reader, this error only gets thrown when the first row is written. After that, it's plain sailing, any other errors are on you.
-      </p>
-      <pre class="w-full whitespace-pre-wrap break-words overflow-x-auto p-4 bg-gray-100 rounded">
-        <code class="block">
+    </p>
+    <p class="mt-4">
+     We've also got app.quit() in this block which closes the excel instance and a delay that allows the instance to fully close.
+    </p>
+    <p class="mt-4">
+     Although it's
+        probably wise to write these errors to our 'failure_reason' column (which we haven't done in this example) because monitoring the terminal constantly kind of defeats 
+        the purpose of automating stuff.
+    </p>
+    <p class="mt-4">
+     Within the except block, we're printing the error to the terminal which will help us identify any other errors while testing.
+    </p>
+    <p class="mt-4">
+     I've put this in here
+        because with absolute consistency, when the first row is added to the spreadsheet's table, reading the table's range raises an exception, which brings this whole house
+        of cards tumbling down.
+    </p>
+    <p class="mt-4">
+     'except Exception' will catch non-specific errors.
+    </p>
+    <p class="mt-4">
+     The try/except block is used to catch errors and allow the code to keep executing despite them.
+    </p>
+    <p class="mt-4">
+     These lines, and the inner loop are wrapped in try/except blocks, which is wrapped in a while true
+        loop.
+    </p>
+    <p class="mt-4">
+     We're also going to define an empty list
+        which will hold the tasks that we're going to run on request by users.
+    </p>
+    <p class="mt-4">
+     Along with opening excel, we're going to read the 'requests_actioned' csv and put the sharepoint_id column values into a list.
+    </p>
+    <p class="mt-4">
+     The inner loop is where the actual work
+        is done but we need to open excel outside of this loop, otherwise every loop iteration would try to open a new instance of excel and our 'requests' spreadsheet.
+    </p>
+    <p class="mt-4">
+     The first thing we need to explain here is the nested infinite loop.
+    </p>
+    <br/>
+    <p class="mt-4">
+     But fear not reader, this error only gets thrown when the first row is written. After that, it's plain sailing, any other errors are on you.
+    </p>
+    <pre class="p-4 w-full bg-gray-100 rounded break-words mt-4 whitespace-pre-wrap overflow-x-auto">
+        <code class="block">while True:
+try:
+# Define the open_excel function output as 'ws'
+app, ws = open_excel(xl_path, sheet_name)
+
+# Define the requests_actioned sharepoint_item_id column as a set 
+processed_ids = list(row[0] for row in read_csv(csv_path))
+
+# Define list for async tasks
+tasks = []
+
+# Start infinite loop to continiously check for new requests
 while True:
-    try:
-        # Define the open_excel function output as 'ws'
-        app, ws = open_excel(xl_path, sheet_name)
+# Define the read_table function output as 'requests'
+requests = read_table(ws, table_name)
 
-        # Define the requests_actioned sharepoint_item_id column as a set 
-        processed_ids = list(row[0] for row in read_csv(csv_path))
+if isinstance(requests[0], list):
+# Calculate the difference between the length of the 'requests' and 'requests_actioned' lists
+row_delta = len(requests) - len(processed_ids)
 
-        # Define list for async tasks
-        tasks = []
-        
-        # Start infinite loop to continiously check for new requests
-        while True:
-            # Define the read_table function output as 'requests'
-            requests = read_table(ws, table_name)
-            
-            if isinstance(requests[0], list):
-                # Calculate the difference between the length of the 'requests' and 'requests_actioned' lists
-                row_delta = len(requests) - len(processed_ids)
+print(row_delta, 'new requests detected.')
 
-                print(row_delta, 'new requests detected.')
+# If there's more items in the 'requests' list...
+if row_delta &gt; 0:
+# Define new requests as the last 'row_delta' items in the 'requests' list
+new_requests = requests[-row_delta:]
 
-                # If there's more items in the 'requests' list...
-                if row_delta > 0:
-                    # Define new requests as the last 'row_delta' items in the 'requests' list
-                    new_requests = requests[-row_delta:]
+# Iterate over items in the 'new_requests' list
+for request in new_requests:
+# Unpack the row list into separate variables
+sharepoint_item_id, function, parameters = request
 
-                    # Iterate over items in the 'new_requests' list
-                    for request in new_requests:
-                        # Unpack the row list into separate variables
-                        sharepoint_item_id, function, parameters = request
+# Add the new sharepoint_item_id to the set
+processed_ids.append(sharepoint_item_id)
 
-                        # Add the new sharepoint_item_id to the set
-                        processed_ids.append(sharepoint_item_id)
+# Append the function and parameters requested to the 'tasks' list as an asyncio task
+tasks.append(asyncio.create_task(function_map.get(function)(sharepoint_item_id, *parameters.split(", "))))
 
-                        # Append the function and parameters requested to the 'tasks' list as an asyncio task
-                        tasks.append(asyncio.create_task(function_map.get(function)(sharepoint_item_id, *parameters.split(", "))))
+# Define a list of completed tasks
+completed_tasks = [task for task in tasks if task.done()]
 
-                # Define a list of completed tasks
-                completed_tasks = [task for task in tasks if task.done()]
-                
-                # Iterate over the list completed tasks
-                for task in completed_tasks:
-                    # Retrieve the response from the power automate flow
-                    result = task.result()
+# Iterate over the list completed tasks
+for task in completed_tasks:
+# Retrieve the response from the power automate flow
+result = task.result()
 
-                    # Append the request log to 'actioned_requests.csv'
-                    append_csv(csv_path, [result["sharepoint_item_id"], result["function"], result["parameters"], result["created"], result["completed"], result['status'], result["failure_reason"]])
-                
-                # Define a list of active tasks to avoid duplicate processing
-                tasks = [task for task in tasks if not task.done()]
-            else:
-                print("Waiting for first request...")
+# Append the request log to 'actioned_requests.csv'
+append_csv(csv_path, [result["sharepoint_item_id"], result["function"], result["parameters"], result["created"], result["completed"], result['status'], result["failure_reason"]])
 
-            # Wait before checking 'requests.xlsx' again, to avoid unnecessary CPU usage
-            await asyncio.sleep(poll_interval)
+# Define a list of active tasks to avoid duplicate processing
+tasks = [task for task in tasks if not task.done()]
+else:
+print("Waiting for first request...")
 
-    except Exception as e:
-        # Print the error
-        print(e)
+# Wait before checking 'requests.xlsx' again, to avoid unnecessary CPU usage
+await asyncio.sleep(poll_interval)
 
-        # Close the excel instance
-        app.quit()
+except Exception as e:
+# Print the error
+print(e)
 
-        # Wait before opening excel again
-        await asyncio.sleep(5)
-        </code>
+# Close the excel instance
+app.quit()
+
+# Wait before opening excel again
+await asyncio.sleep(5)</code>
       </pre>
-      <p>
-        Now that's out the way, let's move on to the inner while true loop. First we're going to run the read_table function and store the output in the requests variable.
+    <p class="mt-4">
+     Now that's out the way, let's move on to the inner while true loop.
+    </p>
+    <p class="mt-4">
+     But if not, we'll just print 'Waiting for first rquest...', which you can see in the 'else' block.
+    </p>
+    <p class="mt-4">
+     So if the first item in the list is a list, we know we have our first
+        request.
+    </p>
+    <p class="mt-4">
+     [["header1", "header2", "header3"], ["columnValue1", "columnValue2", "columnValue3"]].
+    </p>
+    <p class="mt-4">
+     When other rows are added, the output becomes a list of lists, with each row in the table range being
+        a list e.g.
+    </p>
+    <p class="mt-4">
+     ["header1", "header2", "header3"].
+    </p>
+    <p class="mt-4">
+     We're doing this because if the table we're reading is empty excluding the headers, the read_table function will output
+        a list of the header strings e.g.
+    </p>
+    <p class="mt-4">
+     First we're going to run the read_table function and store the output in the requests variable.
         The condition that we're using after that, 'if isinstance(requests[0], list):' will only run the rest of our code if the first item in the requests list (because
-        the read_table function outputs a list), is a list. We're doing this because if the table we're reading is empty excluding the headers, the read_table function will output
-        a list of the header strings e.g. ["header1", "header2", "header3"]. When other rows are added, the output becomes a list of lists, with each row in the table range being
-        a list e.g. [["header1", "header2", "header3"], ["columnValue1", "columnValue2", "columnValue3"]]. So if the first item in the list is a list, we know we have our first
-        request. But if not, we'll just print 'Waiting for first rquest...', which you can see in the 'else' block.
-      </p>
-      <br>
-      <p>
-        Once we pass that condition, we're going to calculate the difference between the length (number of items) of the requests list and the length of the processed_ids list,
-        as 'row_delta'. If there's more items in the requests list, we know we've got requests to process. We'll then filter that requests list by just keeping the last 'row_delta'
-        items in the requests list, and define it as 'new_requests'. Then for each item (list) in the new_requests list, we're gonna unpack each item within it into its own variable
-        (sharepoint_item_id, function, parameters) which we'll then use to create the task with asyncio and append that to the tasks list. Asyncio's create_task function takes
-        the function name and the functions arguments as it's only argument, just like if you were running the function normally. However, we have a bit of an issue, the function name
-        we have is a string, and some of the function arguments we have are contained in a concatenated string. This is where our function_map dictionary comes into play. We'll use
-        function_map.get(function) to get the value of the key in the function map that is equal to our function string, which will return the actual function name in the script.
-        Our function has sharepoint_item_id, recipient_email, and postcode as parameters. We can pass the sharepoint_item_id in with no issue, but with our concatenated arguments, we'll
-        have to split that string by it's delimiter which in this instance is a comma followed by a space, which splits the string into a list. We'll then prefix that with an asterisk
-        to unpack that list into positional arguments e.g. "example@example.com, WD18 6PD" --> ["example@example.com", "WD18 6PD"] --> "example@example.com", "WD18 6PD". Asyncio allows
-        us to run these tasks concurrently (at the same time), efficiently. After we've created the task, we'll then append the sharepoint_item_id of the request to the processed_ids
-        list. Doing this avoids duplication of tasks because once we've created all the tasks for the new requests, our 'if row_delta>0' conditional will no longer be satisfied and will
+        the read_table function outputs a list), is a list.
+    </p>
+    <br/>
+    <p class="mt-4">
+     Once we pass that condition, we're going to calculate the difference between the length (number of items) of the requests list and the length of the processed_ids list,
+        as 'row_delta'.
+    </p>
+    <p class="mt-4">
+     Doing this avoids duplication of tasks because once we've created all the tasks for the new requests, our 'if row_delta&gt;0' conditional will no longer be satisfied and will
         not create any more new tasks until we receive new requests again.
-      </p>
-      <br>
-      <p>
-        Then we'll filter the tasks list to just keep the tasks that have completed, and define that as completed tasks. For each task that is completed, we'll retrieve the output and
-        use the append_csv function to (you guessed it) append a log to the requests_actioned csv. Finally, we'll filter the tasks list to just keep the tasks that aren't completed and
-        use that to redefine the tasks list. So we've processed the completed tasks and removed them from the tasks list so we don't process them again. Then we'll add a delay 
+    </p>
+    <p class="mt-4">
+     After we've created the task, we'll then append the sharepoint_item_id of the request to the processed_ids
+        list.
+    </p>
+    <p class="mt-4">
+     Asyncio allows
+        us to run these tasks concurrently (at the same time), efficiently.
+    </p>
+    <p class="mt-4">
+     "example@example.com, WD18 6PD" --&gt; ["example@example.com", "WD18 6PD"] --&gt; "example@example.com", "WD18 6PD".
+    </p>
+    <p class="mt-4">
+     We'll then prefix that with an asterisk
+        to unpack that list into positional arguments e.g.
+    </p>
+    <p class="mt-4">
+     We can pass the sharepoint_item_id in with no issue, but with our concatenated arguments, we'll
+        have to split that string by it's delimiter which in this instance is a comma followed by a space, which splits the string into a list.
+    </p>
+    <p class="mt-4">
+     We'll use
+        function_map.get(function) to get the value of the key in the function map that is equal to our function string, which will return the actual function name in the script.
+        Our function has sharepoint_item_id, recipient_email, and postcode as parameters.
+    </p>
+    <p class="mt-4">
+     This is where our function_map dictionary comes into play.
+    </p>
+    <p class="mt-4">
+     However, we have a bit of an issue, the function name
+        we have is a string, and some of the function arguments we have are contained in a concatenated string.
+    </p>
+    <p class="mt-4">
+     Asyncio's create_task function takes
+        the function name and the functions arguments as it's only argument, just like if you were running the function normally.
+    </p>
+    <p class="mt-4">
+     Then for each item (list) in the new_requests list, we're gonna unpack each item within it into its own variable
+        (sharepoint_item_id, function, parameters) which we'll then use to create the task with asyncio and append that to the tasks list.
+    </p>
+    <p class="mt-4">
+     We'll then filter that requests list by just keeping the last 'row_delta'
+        items in the requests list, and define it as 'new_requests'.
+    </p>
+    <p class="mt-4">
+     If there's more items in the requests list, we know we've got requests to process.
+    </p>
+    <br/>
+    <p class="mt-4">
+     Then we'll filter the tasks list to just keep the tasks that have completed, and define that as completed tasks.
+    </p>
+    <p class="mt-4">
+     Then we'll add a delay 
         at the end of the loop using the poll_interval to give the CPU some wiggle room to process the tasks.
-      </p>
-      <h2 id="discussion" class="text-2xl font-semibold mt-16 mb-4">Discussion</h2>
-      <p>
-        For the discussion section, i'll go through all of the questions I could foresee someone asking about this project, in a bit of a Q&A format.
-      </p>
-      <br>
-      <p>
-        <b>Why not just use the standard web frontend/backend?</b>
-      </p>
-      <br>
-      <p>
-        At the company I work for, like any other corporate firm, the IT environment is extremely locked down. The network at my office doesn't allow for local 
-        communication, and as I sit within a non-technical team, there's a lot of red tape around me going anywhere near the intranet. For example, I was given the green light
-        to take over development of an internal application. I've been bouncing around from contact to contact for the last 6 months (at the time of writing this), trying to get the access
-        I need to even access the virtual machine it runs on. Given this environment, in order to deliver tools for my team whilst we're still young, I need to get creative
+    </p>
+    <p class="mt-4">
+     So we've processed the completed tasks and removed them from the tasks list so we don't process them again.
+    </p>
+    <p class="mt-4">
+     Finally, we'll filter the tasks list to just keep the tasks that aren't completed and
+        use that to redefine the tasks list.
+    </p>
+    <p class="mt-4">
+     For each task that is completed, we'll retrieve the output and
+        use the append_csv function to (you guessed it) append a log to the requests_actioned csv.
+    </p>
+    <h2 class="font-semibold mb-4 text-2xl mt-16" id="discussion">
+     Discussion
+    </h2>
+    <p class="mt-4">
+     For the discussion section, i'll go through all of the questions I could foresee someone asking about this project, in a bit of a Q&amp;A format.
+    </p>
+    <br/>
+    <p class="mt-4">
+     <b>
+      Why not just use the standard web frontend/backend?
+     </b>
+    </p>
+    <br/>
+    <p class="mt-4">
+     At the company I work for, like any other corporate firm, the IT environment is extremely locked down.
+    </p>
+    <p class="mt-4">
+     Given this environment, in order to deliver tools for my team whilst we're still young, I need to get creative
         with the tools I have at my disposal.
-      </p>
-      <p>
-        <b>Why didn't you use Power Automate's HTTP action to make the request to get data from the third party API?</b>
-      </p>
-      <br>
-      <p>
-        Power Automate's HTTP action requires a Power Automate Premium license, and I just have a Power Automate free license at work. 'Why didn't you just ask for a premium license?' I
-        hear you ask. A premium license means more expenditure for the company, and if you're using this on a small scale, then the cost of a premium license can easily exceed the value
-        you're providing in return. Even if you had a premium license, a local machine making a HTTP request is going to be far faster than making a HTTP request with power automate cloud, and
-        if you need to make more than one request for a task, that time difference is just going to compound. This Pseudo API concept also isn't limited to just making HTTP requests. By passing the
+    </p>
+    <p class="mt-4">
+     I've been bouncing around from contact to contact for the last 6 months (at the time of writing this), trying to get the access
+        I need to even access the virtual machine it runs on.
+    </p>
+    <p class="mt-4">
+     For example, I was given the green light
+        to take over development of an internal application.
+    </p>
+    <p class="mt-4">
+     The network at my office doesn't allow for local 
+        communication, and as I sit within a non-technical team, there's a lot of red tape around me going anywhere near the intranet.
+    </p>
+    <p class="mt-4">
+     <b>
+      Why didn't you use Power Automate's HTTP action to make the request to get data from the third party API?
+     </b>
+    </p>
+    <br/>
+    <p class="mt-4">
+     Power Automate's HTTP action requires a Power Automate Premium license, and I just have a Power Automate free license at work.
+    </p>
+    <p class="mt-4">
+     By passing the
         task to python locally, you have the vast python ecosytem at your disposal, so the possibilities are pretty much limitless.
-      </p>
-      <br>
-      <p>
-        <b>Are you not concerned about the amount of power platform requests you'd be using?</b>
-      </p>
-      <br>
-      <p>
-        Mindful yes, concerned no. As long as you are mindful of the 6,000 request limit per user per day for free users (including yourself) in the building of
-        your power app and your power automate flows, you should be able squeeze every last drop of value of this before having to scale up. The first limit you would hit is with power automate as
-        every request sent from your 'pseudo API' would likely involve power automate flow usage under the same user. 
-        Virtually every action that gets used in your flows is going to count as a request towards your limit. However, by the time you've hit that milestone, you're likely already providing an amount of value
-        that would exceed the cost of a power automate premium license and therefore providing you with that would be a no-brainer. Unfortunately though, the only way you can really track
-        power platform request usage would be using the admin center, which isn't usually accessible in these environments. So as an unofficial way of tracking requests, you should firstly understand
-        what counts as a request and then perhaps write power platform request logs to SharePoint every time you or a user of your power app uses a request. Writing to SharePoint in itself
-        counts toward your request count but it's definitely worth it for the visibility. With that, you'll easily be able to understand areas you need to optimize, or when it coming time to
+    </p>
+    <p class="mt-4">
+     This Pseudo API concept also isn't limited to just making HTTP requests.
+    </p>
+    <p class="mt-4">
+     Even if you had a premium license, a local machine making a HTTP request is going to be far faster than making a HTTP request with power automate cloud, and
+        if you need to make more than one request for a task, that time difference is just going to compound.
+    </p>
+    <p class="mt-4">
+     A premium license means more expenditure for the company, and if you're using this on a small scale, then the cost of a premium license can easily exceed the value
+        you're providing in return.
+    </p>
+    <p class="mt-4">
+     'Why didn't you just ask for a premium license?' I
+        hear you ask.
+    </p>
+    <br/>
+    <p class="mt-4">
+     <b>
+      Are you not concerned about the amount of power platform requests you'd be using?
+     </b>
+    </p>
+    <br/>
+    <p class="mt-4">
+     Mindful yes, concerned no.
+    </p>
+    <p class="mt-4">
+     With that, you'll easily be able to understand areas you need to optimize, or when it coming time to
         scale up.
-      </p>
-      <h2 class="text-2xl font-semibold mt-16 mb-4">Conclusion</h2>
-      <p>
-        This project demonstrates how real automation and integration can be achieved—even in tightly controlled, low-access corporate environments. By leveraging Power Platform tools strategically and using Python as the logic engine, I’ve created a flexible system that bridges external data into the Microsoft ecosystem with minimal licensing and infrastructure overhead.
-      </p>
-      <p>
-        More importantly, this isn’t just a working tool, it’s a foundation. As usage scales, it becomes a clear signal that further investment (in licensing or infrastructure) is justified. That’s the real goal here: not just building solutions, but building momentum for change.
-      </p>
-    </div>
+    </p>
+    <p class="mt-4">
+     Writing to SharePoint in itself
+        counts toward your request count but it's definitely worth it for the visibility.
+    </p>
+    <p class="mt-4">
+     So as an unofficial way of tracking requests, you should firstly understand
+        what counts as a request and then perhaps write power platform request logs to SharePoint every time you or a user of your power app uses a request.
+    </p>
+    <p class="mt-4">
+     Unfortunately though, the only way you can really track
+        power platform request usage would be using the admin center, which isn't usually accessible in these environments.
+    </p>
+    <p class="mt-4">
+     However, by the time you've hit that milestone, you're likely already providing an amount of value
+        that would exceed the cost of a power automate premium license and therefore providing you with that would be a no-brainer.
+    </p>
+    <p class="mt-4">
+     Virtually every action that gets used in your flows is going to count as a request towards your limit.
+    </p>
+    <p class="mt-4">
+     The first limit you would hit is with power automate as
+        every request sent from your 'pseudo API' would likely involve power automate flow usage under the same user.
+    </p>
+    <p class="mt-4">
+     As long as you are mindful of the 6,000 request limit per user per day for free users (including yourself) in the building of
+        your power app and your power automate flows, you should be able squeeze every last drop of value of this before having to scale up.
+    </p>
+    <h2 class="font-semibold mb-4 text-2xl mt-16">
+     Conclusion
+    </h2>
+    <p class="mt-4">
+     This project demonstrates how real automation and integration can be achieved—even in tightly controlled, low-access corporate environments. By leveraging Power Platform tools strategically and using Python as the logic engine, I’ve created a flexible system that bridges external data into the Microsoft ecosystem with minimal licensing and infrastructure overhead.
+    </p>
+    <p class="mt-4">
+     More importantly, this isn’t just a working tool, it’s a foundation. As usage scales, it becomes a clear signal that further investment (in licensing or infrastructure) is justified. That’s the real goal here: not just building solutions, but building momentum for change.
+    </p>
+   </div>
   </main>
-
   <!-- Mobile Menu Toggle Script -->
   <script>
-    const menuButton = document.getElementById('menu-button');
+   const menuButton = document.getElementById('menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
 
     menuButton.addEventListener('click', () => {
       mobileMenu.classList.toggle('hidden');
     });
   </script>
-</body>
-
+ </body>
 </html>
