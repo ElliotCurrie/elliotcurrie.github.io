@@ -65,9 +65,6 @@
 
   <!-- Main Content -->
   <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
-    <h1 class="text-3xl font-bold text-red-500">
-      WRITE-UP INCOMPLETE - Proof of concept to be added. It does work pretty well though, trust me bro.
-    </h1>
     <h1 class="text-3xl font-bold">Pseudo API</h1>
 
     <div class="prose max-w-none">
@@ -85,9 +82,14 @@
         However, since then I've realised that this idea has scope to scale.
       </p>
       <p>
-        The problem this solves could essentially be what you want it to be. It's the reason I haven't scaled this idea
-        yet — I'm waiting for a concrete use case, beyond what I'm already using it for.
+        The problem this solves is proving to your company that a particular team/department would benefit from a custom API, and should thus have more
+        resources poured into it. It's more of a strategic first step towards change than the final product.
       </p>
+      <video width="640" height="360" controls>
+        <source src="media/pseudo_api/pseudo_api.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      
 
       <h2 id="tools" class="text-2xl font-semibold mt-16 mb-4">Tools & Workarounds</h2>
       <p>Due to the limitations of the environment, I had to employ some unconventional but effective solutions to get
@@ -120,7 +122,7 @@
         I’ve named this table ‘request_log’ so it’s recognisable in the Power App’s list of data sources if we ever want to add more excel sources down the line.
       </p>
       <br>
-      <img src="requests_excel.png" class="w-full">
+      <img src="media/pseudo_api/requests_excel.png" class="w-full">
       <br>
       <p>
         Then we’ll save that to a folder that syncs with OneDrive with the name ‘requests’ (Figure 2), 
@@ -134,7 +136,7 @@
         folder to avoid needless disk usage from OneDrive syncs. It would be wise to create a backup file in OneDrive though, which could be overwritten daily during downtime.
       </p>
       <br>
-      <img src="onedrive_files_1.png" class="w-full">
+      <img src="media/pseudo_api/onedrive_files_1.png" class="w-full">
       <h3 id="python_script" class="text-xl font-semibold mb-4 mt-8">Python Script (Part 1)</h3>
       <p>
         We’ll need a Python script to monitor the spreadsheet we’ve just created. To be able to catch new data as soon as it syncs, we need to ensure
@@ -304,7 +306,7 @@ async def postcode_lookup(sharepoint_item_id, recipient_email, postcode):
         create four columns: Function, Parameters, Completed, and Response. These columns are boxed in red, in the screenshot below. The other columns in the screenshot are
         default metadata columns created by SharePoint.
       </p>
-      <img src="sharepoint_list.png" class="w-full">
+      <img src="media/pseudo_api/sharepoint_list.png" class="w-full">
       <p>
         The Function column is going to contain the name of the function we've called, Parameters will contain the parameters for the function we're calling, Completed will
         contain a timestamp which will be updated on completion of the request, and Response will contain the response from the Python script.
@@ -319,14 +321,14 @@ async def postcode_lookup(sharepoint_item_id, recipient_email, postcode):
         This Power App has been given two data sources (screenshot below): the 'request_log' table from the OneDrive spreadsheet we created in the Excel Workbook section, and the Requests SharePoint list
         we created in the previous section.
       </p>
-      <img src="power_app_data_sources.png" class="w-full">
+      <img src="media/pseudo_api/power_app_data_sources.png" class="w-full">
       <p>
         I've created a basic, clean layout with the header and main content separated into different containers (screenshot below). Within the main content container,
         i've added a tab list which will allow users to switch between requests. I've also added a request container for that particular request, which contains a submit button,
         a text input for users to submit a postcode, and a response text label. There is also a new form control within the request container that uses the Requests SharePoint
         list as a data source which has been made invisible, which we're going to use in the submit button's OnSelect property.
       </p>
-      <img src="power_app.png" class="w-full">
+      <img src="media/pseudo_api/power_app.png" class="w-full">
       <p>
         Now we'll set the submit button's OnSelect property to the below, to pass the data for the request to both of the apps data sources.
       </p>
@@ -403,7 +405,7 @@ Set(var_submit_btn_dm, DisplayMode.Edit);
         set up a Power Automate cloud flow with a 'When a HTTP request is recieved' trigger. This will give us the url to use as the endpoint for our second request. The URL will
         be generated when the flow is saved.
       </p>
-      <img src="power_automate_trigger.png" class="w-full">
+      <img src="media/pseudo_api/power_automate_trigger.png" class="w-full">
       <p>
         There's one very crucial property within the trigger that needs to be changed. By default, the 'Who can trigger the flow?' property is set to 'Any user in my tenant'. With this
         default setting, for our local Python script to be able to trigger this flow, we'd have to register an app on Azure Active Directory and use MSAL
@@ -440,7 +442,7 @@ Set(var_submit_btn_dm, DisplayMode.Edit);
         The only real action we're going to use in this example is SharePoint's Update Item. We'll use this action to update the SharePoint item in our list we created
         when we sent the request from Power Apps.
       </p>
-      <img src="update_sharepoint_item.png" class="w-full">
+      <img src="media/pseudo_api/update_sharepoint_item.png" class="w-full">
       <p>
         We'll select the site address where we created the list and the list itself using the dropdowns in the action. Then we'll use the sharepoint_item_id from the data passed sent to the trigger to
         tell the action which item we're updating and the only other two columns we want to update here are Completed, and Response. We'll generate a timestamp using Power Automate's
@@ -452,7 +454,7 @@ Set(var_submit_btn_dm, DisplayMode.Edit);
       <p>
         Our final action in this flow is the response payload, containing a log of the request (screenshot below), which will be sent back to the Python script to process.
       </p>
-      <img src="response.png" class="w-full">
+      <img src="media/pseudo_api/response.png" class="w-full">
       <h3 id="python_p2" class="text-xl font-semibold mt-16 mb-4">Python Script (Part 2)</h3>
       <p>
         For the final piece to the puzzle, we're now going to create the 'main' function in the Python script. This will be where our core logic will be ran from, tieing
