@@ -87,6 +87,55 @@
    <a class="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl shadow hover:bg-blue-700 transition" download="" href="https://raw.githubusercontent.com/ElliotCurrie/elliotcurrie.github.io/main/project_files/pseudo_api.zip">
     Download project files
    </a>
+   <div class="mt-4 mb-8">
+    <label class="block mb-2 font-semibold" for="section-jump">
+     Jump to section:
+    </label>
+    <select class="w-full max-w-xs px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" id="section-jump" onchange="location.href = this.value">
+     <option value="#disclaimer">
+      Disclaimer
+     </option>
+     <option value="#overview">
+      Overview
+     </option>
+     <option value="#tools">
+      Tools &amp; Workarounds
+     </option>
+     <option value="#workflow">
+      Workflow
+     </option>
+     <option value="#technical_breakdown">
+      Technical Breakdown
+     </option>
+     <option value="#excel_workbook">
+      Excel Workbook
+     </option>
+     <option value="#python_script">
+      Python Script (Part 1)
+     </option>
+     <option value="#lookup_a_postcode_function">
+      lookup_a_postcode
+     </option>
+     <option value="#sharepoint">
+      SharePoint
+     </option>
+     <option value="#power_apps">
+      Power Apps
+     </option>
+     <option value="#power_automate">
+      Power Automate
+     </option>
+     <option value="#python_p2">
+      Python Script (Part 2)
+     </option>
+     <option value="#discussion">
+      Discussion
+     </option>
+     <option value="#conclusion">
+      Conclusion
+     </option>
+    </select>
+   </div>
    <div class="prose max-w-none">
     <h2 class="font-semibold mb-4 text-2xl" id="disclaimer">
      Disclaimer
@@ -217,7 +266,7 @@
         SharePoint list, and the Power Automate flow. In my case, my environment is ‘EC’.
     </p>
     <h3 class="mt-8 mt-4 font-semibold mb-4 text-xl" id="excel_workbook">
-     CSV
+     Excel Workbook
     </h3>
     <p class="mt-4">
      We’ll also create a CSV called ‘requests_actioned’ (image below), containing the same headers as OneDrive spreadsheet as well as some additional headers: 
