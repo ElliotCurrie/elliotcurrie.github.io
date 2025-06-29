@@ -645,11 +645,22 @@ while True:
       </p>
       <br>
       <p>
-        Mindful yes, concerned no. This project is all about scale. As long as you are mindful of the 6,000 request limit per user per day for free users (including yourself) in the building of
-        your power app and your power automate flows, you should be able squeeze every last drop of value of this before having to scale up. The first limit you would hit is with power automate. Virtually
-        every action that gets used in your flows is going to count as a request towards your limit. However, by the time you've hit that milestone, you're likely already providing an amount of value
-        that would exceed the cost of a power automate premium license and therefore providing you with that would be a no-brainer. Although, before you even get to that point, you're main concern
-        will probably be resource usage on your always-on machine, depending on the tasks you're running.
+        Mindful yes, concerned no. As long as you are mindful of the 6,000 request limit per user per day for free users (including yourself) in the building of
+        your power app and your power automate flows, you should be able squeeze every last drop of value of this before having to scale up. The first limit you would hit is with power automate as
+        every request sent from your 'pseudo API' would likely involve power automate flow usage under the same user. 
+        Virtually every action that gets used in your flows is going to count as a request towards your limit. However, by the time you've hit that milestone, you're likely already providing an amount of value
+        that would exceed the cost of a power automate premium license and therefore providing you with that would be a no-brainer. Unfortunately though, the only way you can really track
+        power platform request usage would be using the admin center, which isn't usually accessible in these environments. So as an unofficial way of tracking requests, you should firstly understand
+        what counts as a request and then perhaps write power platform request logs to SharePoint every time you or a user of your power app uses a request. Writing to SharePoint in itself
+        counts toward your request count but it's definitely worth it for the visibility. With that, you'll easily be able to understand areas you need to optimize, or when it coming time to
+        scale up.
+      </p>
+      <h2 class="text-2xl font-semibold mt-16 mb-4">Conclusion</h2>
+      <p>
+        This project demonstrates how real automation and integration can be achieved—even in tightly controlled, low-access corporate environments. By leveraging Power Platform tools strategically and using Python as the logic engine, I’ve created a flexible system that bridges external data into the Microsoft ecosystem with minimal licensing and infrastructure overhead.
+      </p>
+      <p>
+        More importantly, this isn’t just a working tool, it’s a foundation. As usage scales, it becomes a clear signal that further investment (in licensing or infrastructure) is justified. That’s the real goal here: not just building solutions, but building momentum for change.
       </p>
     </div>
   </main>
